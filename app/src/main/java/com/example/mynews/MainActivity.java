@@ -2,17 +2,12 @@ package com.example.mynews;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.example.mynews.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,14 +21,22 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //1 - Configuring Toolbar
+        this.configureToolbar();
+
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //2 - Inflate the menu and add it to the Toolbar
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+    private void configureToolbar(){
+        // Get the toolbar view inside the activity layout
+        Toolbar toolbar = findViewById(R.id.activity_main_toolbar);
+        // Sets the Toolbar
+        setSupportActionBar(toolbar);
     }
 }

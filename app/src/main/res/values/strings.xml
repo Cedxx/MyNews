@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">MyNews</string>
-    <string name="tab_text_1">Top Stories</string>
-    <string name="tab_text_2">Most Popular</string>
-    <string name="tab_text_3">Sports</string>
+    <string name="top_story">Top Stories</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="sport">Sports</string>
+    <string name="search">Search</string>
+    <string name="setting">Settings</string>
+    <string name="nav_header_desc">Navigation Header</string>
+    <string name="nav_header_title">MyNews</string>
+    <string name="nav_header_subtitle">A News Application</string>
 </resources>
