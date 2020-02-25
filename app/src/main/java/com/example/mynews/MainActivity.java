@@ -37,15 +37,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_activity_main_search:
-                Intent i = new Intent(this, SearchActivityIntent.class);
-                this.startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.menu_activity_main_search) {
+            Intent i = new Intent(this, SearchActivityIntent.class);
+            this.startActivity(i);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
+
+    public void onSettingItemClick(MenuItem item) {
+        // The setting MenuItem was clicked
+        // All other menu item clicks are handled onOptionsItemSelected()
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
