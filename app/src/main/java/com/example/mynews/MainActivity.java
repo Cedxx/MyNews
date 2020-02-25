@@ -30,11 +30,9 @@ public class MainActivity extends AppCompatActivity {
         //Configuring Toolbar
         this.configureToolbar();
 
-        //onCLick for the Search
-
-
     }
 
+    //Method to start the Search Intent when the icon is clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_activity_main_search) {
@@ -45,12 +43,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Method show the Setting option when the icon is clicked
     public void onSettingItemClick(MenuItem item) {
         // The setting MenuItem was clicked
         // All other menu item clicks are handled onOptionsItemSelected()
     }
 
 
+    //Method to inflate the topbar menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate the menu and add it to the Toolbar
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //Method to configure the Topbar view
     private void configureToolbar() {
         //Get the toolbar view inside the activity layout
         Toolbar toolbar = findViewById(R.id.activity_main_toolbar);
