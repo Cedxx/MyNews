@@ -8,8 +8,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.mynews.ui.main.SectionsPagerAdapter;
 
@@ -32,12 +32,26 @@ public class MainActivity extends AppCompatActivity {
 
         //onCLick for the Search
 
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_activity_main_search:
+                Intent i = new Intent(this, SearchActivityIntent.class);
+                this.startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate the menu and add it to the Toolbar
-        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_main, menu);
         return true;
     }
 
