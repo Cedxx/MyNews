@@ -1,6 +1,7 @@
 package com.example.mynews;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -14,6 +15,11 @@ import android.view.MenuItem;
 import com.example.mynews.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
+
+    // SharedPreferences variable
+    public static final String MyPref = "MyPrefsFile";
+    protected SharedPreferences.Editor mEditor;
+    protected SharedPreferences mSharedPreferences;
 
 
     @Override
