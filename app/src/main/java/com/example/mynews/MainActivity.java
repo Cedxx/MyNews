@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_activity_main_search) {
-            Intent i = new Intent(this, SearchActivityIntent.class);
+            Intent i = new Intent(this, SearchActivity.class);
             this.startActivity(i);
             return true;
         }

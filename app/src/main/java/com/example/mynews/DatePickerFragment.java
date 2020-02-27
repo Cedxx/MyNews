@@ -2,24 +2,46 @@ package com.example.mynews;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.DatePicker;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
-public class DatePickerFragment extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    private OnDateSetListener callbackListener;
 
+    /**
+     * An interface containing onDateSet() method signature.
+     * Container Activity must implement this interface.
+     */
+    public interface OnDateSetListener {
+        void onDateSet(DatePicker view, int year, int month, int dayOfMonth);
+    }
 
+    /** (non-Javadoc)
+     * @see android.app.DialogFragment#onAttach(android.app.Activity)
+     */
+    @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+
+        try {
+            callbackListener = (OnDateSetListener) activity;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnDateSetListener.");
+        }
+    }
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-
         // Use the current date as the default date in the picker
-        final Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance(getResources().getConfiguration().locale);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -28,16 +50,10 @@ public class DatePickerFragment extends DialogFragment
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Do something with the date chosen by the user
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        String myFormat = "yyyy-MM-dd"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        //textView.setText(sdf.format(calendar.getTime()));
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        if (callbackListener != null) {
+            callbackListener.onDateSet(view, year, month, dayOfMonth);
+        }
     }
-
- }
-
+}

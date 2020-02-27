@@ -11,8 +11,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="pick_date">Select date</string>
-    <string name="pick_date_2">Select date</string>
+    <string name="pick_date_begin">Begin Date</string>
+    <string name="pick_date_End">End Date</string>
     <string name="Search_query_term">Search query term</string>
 
 </resources>
