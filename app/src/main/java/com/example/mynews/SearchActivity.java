@@ -1,5 +1,7 @@
 package com.example.mynews;
 
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -20,6 +22,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private Locale locale;
 
     private DialogFragment datePicker;
+
+    // SharedPreferences variable
+    public static final String MyPref = "MyPrefsFile";
+    protected SharedPreferences.Editor mEditor;
+    protected SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mEndDateText.setInputType(InputType.TYPE_NULL);
         //Set the OnClickListener
         mEndDateText.setOnClickListener(this);
+
+
     }
 
     //onClick, will start the DatePicker Fragment for both Begin and End date
