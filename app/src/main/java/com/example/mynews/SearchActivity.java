@@ -15,7 +15,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener, DatePickerFragment.OnDateSetListener {
+public class SearchActivity extends AppCompatActivity implements DatePickerFragment.OnDateSetListener {
 
     private EditText mBeginDateText;
     private EditText mEndDateText;
@@ -43,33 +43,36 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         //disable the keyboard input
         mBeginDateText.setInputType(InputType.TYPE_NULL);
         //Set the OnClickListener
-        mBeginDateText.setOnClickListener(this);
+        mBeginDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    datePicker.show(getSupportFragmentManager(), "datePickerBegin");
+                }else{
+                    datePicker.dismiss();
+                }
+            }
+        });
 
         //Linking the End Date text area to the view
         mEndDateText = findViewById(R.id.pickEndDate);
         //disable the keyboard input
         mEndDateText.setInputType(InputType.TYPE_NULL);
         //Set the OnClickListener
-        mEndDateText.setOnClickListener(this);
+        mEndDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    datePicker.show(getSupportFragmentManager(), "datePickerEnd");
+                }else {
+                    datePicker.dismiss();
+                }
 
+            }
+        });
 
     }
 
-    //onClick, will start the DatePicker Fragment for both Begin and End date
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.pickBeginDate: {
-                datePicker.show(getSupportFragmentManager(), "datePickerBegin");
-                break;
-            }
-            case R.id.pickEndDate: {
-                datePicker.show(getSupportFragmentManager(),"datePickerEnd");
-                break;
-            }
-        }
-    }
 
 
     @Override
