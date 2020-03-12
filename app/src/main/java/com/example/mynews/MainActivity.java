@@ -55,34 +55,6 @@ public class MainActivity extends AppCompatActivity {
         //Configuring Toolbar
         this.configureToolbar();
 
-        //Volley
-        final TextView textView = findViewById(R.id.textViewTest);
-
-        // Instantiate the RequestQueue.
-        mRequestQueue = Volley.newRequestQueue(this);
-        String url = "http://www.google.com";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        textView.setText("Response is: " + response.substring(0, 500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                textView.setText("That didn't work!");
-            }
-        });
-
-        // Set the tag on the request.
-        stringRequest.setTag(TAG);
-
-
-        // Add the request to the RequestQueue.
-        mRequestQueue.add(stringRequest);
     }
 
     //Method to start the Search Intent when the icon is clicked
