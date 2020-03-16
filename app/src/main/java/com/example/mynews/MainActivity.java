@@ -21,11 +21,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mynews.ui.main.SectionsPagerAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
     protected SharedPreferences mSharedPreferences;
 
     //Volley variable
-    private static final String TAG = "Event";
-    //private static String url = "https://api.nytimes.com/svc/mostpopular/v2";
-    private RequestQueue mRequestQueue;
+    //the URL having the json data
+    private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
 
-
+    //The list where we will store all the News object after parsing JSON
+    List<news>mNewsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Configuring Toolbar
         this.configureToolbar();
+
+        //Initializing the News List
+        mNewsList = new ArrayList<>();
+
+        //this method will fetch and parse the data
+        loadNewsList();
 
     }
 
@@ -92,15 +105,59 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    //onStop will close RequestQueue
-    @Override
-    protected void onStop () {
-        super.onStop();
-        if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(TAG);
-        }
-    }
+    private void loadNewsList(){
+        //Creating the string request to send request to the url
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
+                        try {
+                            //getting the whole json object from the response
+                            JSONObject obj = new JSONObject(response);
+
+                            //we have the array named newsArray inside the object
+                            //so here we are getting that json array
+                            JSONArray newsArray = obj.getJSONArray("results");
+
+                            //now looping through all the elements of the json array
+                            for (int i = 0; i < newsArray.length(); i++) {
+                                //getting the json object of the particular index inside the array
+                                JSONObject newsObject = newsArray.getJSONObject(i);
+                                JSONObject sectionObject = newsObject.getJSONObject("section");
+                                JSONArray mediaArray = newsObject.getJSONArray("media");
+                                JSONObject mediaObject = mediaArray.getJSONObject(0);
+                                JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
+                                JSONObject mediaIndex = mediaData.getJSONObject(0);
+
+
+
+                                //creating a hero object and giving them the values from json object
+                                news news = new news(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject.getString("section"), mediaIndex.getString("url"));
+
+                                //adding the news to newsList
+                                mNewsList.add(news);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //displaying the error in toast if occurs
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        //creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //adding the string request to request queue
+        requestQueue.add(stringRequest);
+    }
 
 }
 

@@ -1,21 +1,17 @@
 package com.example.mynews;
 
 public class news {
-    private String title, imageUrl, date, section;
+    private String title, date, section, imageUrl;
 
-    public news(String title, String imageUrl, String date, String section){
+    public news(String title, String date, String section, String imageUrl){
         this.title = title;
-        this.imageUrl = imageUrl;
-        this.date = section;
+        this.date = date;
         this.section = section;
+        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
     }
 
     public String getDate() {
@@ -24,5 +20,9 @@ public class news {
 
     public String getSection() {
         return section;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }
