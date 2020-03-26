@@ -8,8 +8,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
@@ -17,12 +15,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynews.ui.main.SectionsPagerAdapter;
@@ -46,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
 
     //The list where we will store all the News object after parsing JSON
-    List<news>mNewsList;
+    List<News>mNewsList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 //creating a hero object and giving them the values from json object
-                                news news = new news(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject.getString("section"), mediaIndex.getString("url"));
+                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject.getString("section"), mediaIndex.getString("url"));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);

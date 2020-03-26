@@ -1,9 +1,9 @@
 package com.example.mynews;
 
-public class news {
+public class News {
     private String title, date, section, imageUrl;
 
-    public news(String title, String date, String section, String imageUrl){
+    public News(String title, String date, String section, String imageUrl){
         this.title = title;
         this.date = date;
         this.section = section;
