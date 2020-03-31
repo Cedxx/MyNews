@@ -34,14 +34,10 @@ import java.util.Objects;
 
 
 public class TopStoryFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    //RecyclerView variable :
-    private NewsAdapter mNewsAdapter;
     //the URL having the json data
     private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
-    List<News> mNewsList;
+    private List<News> mNewsList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,10 +104,9 @@ public class TopStoryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_top_story, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-        List<News> newsList = new ArrayList<>();
-        mNewsAdapter = new NewsAdapter(getContext(), newsList);
-
-
+        mNewsList = new ArrayList<>();
+        NewsAdapter newsAdapter = new NewsAdapter(getContext(), mNewsList);
+        recyclerView.setAdapter(newsAdapter);
         return root;
     }
 }
