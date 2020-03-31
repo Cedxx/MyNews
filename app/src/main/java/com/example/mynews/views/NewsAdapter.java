@@ -15,6 +15,7 @@ import com.example.mynews.News;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
@@ -23,12 +24,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private ImageView mNewsImage;
 
     //Member variable
-    private ArrayList<News> mData;
+    private List<News> mData;
     private LayoutInflater mInflater;
 
 
     // data is passed into the constructor
-    public NewsAdapter(Context context, ArrayList<News> data){
+    public NewsAdapter(Context context, List<News> data){
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }

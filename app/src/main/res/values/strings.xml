@@ -15,4 +15,7 @@
     <string name="pick_date_End">End Date</string>
     <string name="Search_query_term">Search query term</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
