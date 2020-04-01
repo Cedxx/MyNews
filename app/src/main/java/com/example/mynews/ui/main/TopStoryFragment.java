@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,10 +39,12 @@ public class TopStoryFragment extends Fragment {
     private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
+    private SectionsPagerAdapter sectionsPagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //Creating the string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
                 new Response.Listener<String>() {
@@ -74,6 +77,8 @@ public class TopStoryFragment extends Fragment {
                                 //adding the news to newsList
                                 mNewsList.add(news);
                             }
+                            sectionsPagerAdapter.setNews(mNewsList);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -104,9 +109,13 @@ public class TopStoryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_top_story, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-        mNewsList = new ArrayList<>();
+        //mNewsList = new ArrayList<>();
         NewsAdapter newsAdapter = new NewsAdapter(getContext(), mNewsList);
         recyclerView.setAdapter(newsAdapter);
         return root;
+    }
+
+    public void setNewsList(List<News> news){
+        this.mNewsList = news;
     }
 }

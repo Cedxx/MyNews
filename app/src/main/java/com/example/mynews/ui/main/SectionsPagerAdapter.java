@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.mynews.News;
 import com.example.mynews.R;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private final Context mContext;
 
     private List<Fragment> mFragmentList;
+    private List<News> mNews;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -50,5 +52,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         // Show 3 total pages.
         return mFragmentList.size();
+    }
+
+    public void setNews(List<News> newsArrayList) {
+        this.mNews = newsArrayList;
     }
 }
