@@ -30,7 +30,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
-        mFragmentList = new ArrayList<Fragment>();
+        mFragmentList = new ArrayList<>();
         mFragmentList.add(new TopStoryFragment());
 
     }

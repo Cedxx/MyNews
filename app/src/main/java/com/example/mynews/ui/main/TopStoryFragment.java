@@ -1,18 +1,16 @@
 package com.example.mynews.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -39,11 +37,15 @@ public class TopStoryFragment extends Fragment {
     private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
-    private SectionsPagerAdapter sectionsPagerAdapter;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private NewsAdapter mNewsAdapter;
+    private TopStoryViewModel mTopStoryViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mNewsList = new ArrayList<>();
+        mTopStoryViewModel = new TopStoryViewModel();
 
         //Creating the string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
@@ -60,10 +62,10 @@ public class TopStoryFragment extends Fragment {
                             JSONArray newsArray = obj.getJSONArray("results");
 
                             //now looping through all the elements of the json array
-                            for (int i = 0; i < newsArray.length(); i++) {
+                        //    for (int i = 0; i < newsArray.length(); i++) {
                                 //getting the json object of the particular index inside the array
-                                JSONObject newsObject = newsArray.getJSONObject(i);
-                                JSONObject sectionObject = newsObject.getJSONObject("section");
+                                JSONObject newsObject = newsArray.getJSONObject(0);
+                                String sectionObject = newsObject.getString("section");
                                 JSONArray mediaArray = newsObject.getJSONArray("media");
                                 JSONObject mediaObject = mediaArray.getJSONObject(0);
                                 JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
@@ -72,12 +74,13 @@ public class TopStoryFragment extends Fragment {
 
 
                                 //creating a hero object and giving them the values from json object
-                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject.getString("section"), mediaIndex.getString("url"));
+                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
-                            }
-                            sectionsPagerAdapter.setNews(mNewsList);
+                         //   }
+                            mSectionsPagerAdapter.setNews(mNewsList);
+                            mTopStoryViewModel.setNews(mNewsList);
 
 
                         } catch (JSONException e) {
@@ -108,14 +111,15 @@ public class TopStoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_top_story, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-        //mNewsList = new ArrayList<>();
-        NewsAdapter newsAdapter = new NewsAdapter(getContext(), mNewsList);
-        recyclerView.setAdapter(newsAdapter);
-        return root;
-    }
+        mTopStoryViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
+            @Override
+            public void onChanged(List<News> news) {
+                recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
+                mNewsAdapter = new NewsAdapter(getContext(), mNewsList);
+                recyclerView.setAdapter(mNewsAdapter);
+            }
+        });
 
-    public void setNewsList(List<News> news){
-        this.mNewsList = news;
+        return root;
     }
 }
