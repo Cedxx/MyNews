@@ -25,7 +25,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private final Context mContext;
 
     private List<Fragment> mFragmentList;
-    private List<News> mNews;
+    private List<News> mNewsList;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -54,7 +54,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-    public void setNews(List<News> newsArrayList) {
-        this.mNews = newsArrayList;
+    public void setNewsList(List<News> newsArrayList) {
+        this.mNewsList = newsArrayList;
     }
 }

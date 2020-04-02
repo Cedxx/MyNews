@@ -1,6 +1,5 @@
 package com.example.mynews.ui.main;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -79,7 +78,7 @@ public class TopStoryFragment extends Fragment {
                                 //adding the news to newsList
                                 mNewsList.add(news);
                          //   }
-                            mSectionsPagerAdapter.setNews(mNewsList);
+                            mSectionsPagerAdapter.setNewsList(mNewsList);
                             mTopStoryViewModel.setNews(mNewsList);
 
 
@@ -111,6 +110,7 @@ public class TopStoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_top_story, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
         mTopStoryViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
             public void onChanged(List<News> news) {

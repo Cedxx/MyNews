@@ -14,24 +14,25 @@ import com.example.mynews.R;
 import com.example.mynews.News;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
-    private TextView mNewsDescription;
     private ImageView mNewsImage;
+    private TextView mNewsDescription;
+    private TextView mNewsCategory;
+    private TextView mNewsDate;
 
     //Member variable
-    private List<News> mData;
+    private List<News> mNewsList;
     private LayoutInflater mInflater;
 
 
     // data is passed into the constructor
-    public NewsAdapter(Context context, List<News> data){
+    public NewsAdapter(Context context, List<News> newsList){
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mNewsList = newsList;
     }
 
     @NonNull
@@ -44,21 +45,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
-        TextView test1 = mNewsDescription.findViewById(R.id.newsDescription);
-        ImageView test2 = mNewsImage.findViewById(R.id.newsImage);
+        TextView newsDescription = mNewsDescription.findViewById(R.id.newsDescription);
+        ImageView newsImage = mNewsImage.findViewById(R.id.newsImage);
+        TextView newsCategory = mNewsCategory.findViewById(R.id.newsCategory);
+        TextView newsDate = mNewsDate.findViewById(R.id.newsDate);
 
-        News news = mData.get(position);
+        News news = mNewsList.get(position);
 
-        test1.setText(news.getTitle());
+        newsDescription.setText(news.getTitle());
+        newsCategory.setText(news.getSection());
+        newsDate.setText(news.getDate());
         String imgUrl = news.getImageUrl();
-        Picasso.get().load(imgUrl).into(test2);
+        Picasso.get().load(imgUrl).into(newsImage);
 
     }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mNewsList.size();
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -67,6 +72,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             mNewsDescription = itemView.findViewById(R.id.newsDescription);
+            mNewsCategory = itemView.findViewById(R.id.newsCategory);
+            mNewsDate = itemView.findViewById(R.id.newsDate);
             mNewsImage = itemView.findViewById(R.id.newsImage);
             itemView.setOnClickListener(this);
         }
