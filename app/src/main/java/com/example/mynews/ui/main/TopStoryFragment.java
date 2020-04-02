@@ -61,9 +61,9 @@ public class TopStoryFragment extends Fragment {
                             JSONArray newsArray = obj.getJSONArray("results");
 
                             //now looping through all the elements of the json array
-                        //    for (int i = 0; i < newsArray.length(); i++) {
+                            for (int i = 0; i < newsArray.length(); i++) {
                                 //getting the json object of the particular index inside the array
-                                JSONObject newsObject = newsArray.getJSONObject(0);
+                                JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
                                 JSONArray mediaArray = newsObject.getJSONArray("media");
                                 JSONObject mediaObject = mediaArray.getJSONObject(0);
@@ -77,7 +77,7 @@ public class TopStoryFragment extends Fragment {
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
-                         //   }
+                            }
                             mSectionsPagerAdapter.setNewsList(mNewsList);
                             mTopStoryViewModel.setNews(mNewsList);
 

@@ -35,6 +35,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         this.mNewsList = newsList;
     }
 
+    // inflates the row layout from xml when needed
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,6 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return new NewsViewHolder(view);
     }
 
+    // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
@@ -52,6 +54,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
         News news = mNewsList.get(position);
 
+        //Set the JSON queried data in the respective section
         newsDescription.setText(news.getTitle());
         newsCategory.setText(news.getSection());
         newsDate.setText(news.getDate());
@@ -61,11 +64,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
 
+    // Set the limit size of the list to match the JSON queried item
     @Override
     public int getItemCount() {
         return mNewsList.size();
     }
 
+    // stores and recycles views as they are scrolled off screen
     public class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
