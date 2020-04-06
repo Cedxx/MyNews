@@ -1,8 +1,6 @@
 package com.example.mynews.ui.main;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,21 +29,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
-public class TopStoryFragment extends Fragment {
+public class MostPopularFragment extends Fragment {
     //the URL having the json data
-    private static final String JSON_URL = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
+    private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private NewsAdapter mNewsAdapter;
-    private TopStoryViewModel mTopStoryViewModel;
+    private MostPopularViewModel mMostPopularViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
-        mTopStoryViewModel = new TopStoryViewModel();
+        mMostPopularViewModel = new MostPopularViewModel();
 
 
         //Creating the string request to send request to the url
@@ -63,7 +60,7 @@ public class TopStoryFragment extends Fragment {
                             JSONArray newsArray = obj.getJSONArray("results");
 
                             //now looping through all the elements of the json array
-                                for (int i = 0; i < newsArray.length(); i++) {
+                            for (int i = 0; i < newsArray.length(); i++) {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
@@ -82,7 +79,7 @@ public class TopStoryFragment extends Fragment {
                             }
 
                             mSectionsPagerAdapter.setNewsList(mNewsList);
-                            mTopStoryViewModel.setNews(mNewsList);
+                            mMostPopularViewModel.setNews(mNewsList);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -110,11 +107,11 @@ public class TopStoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_top_story, container, false);
+        View root = inflater.inflate(R.layout.fragment_most_popular, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
         //LiveData Observer
-        mTopStoryViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
+        mMostPopularViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
             public void onChanged(List<News> news) {
                 recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
