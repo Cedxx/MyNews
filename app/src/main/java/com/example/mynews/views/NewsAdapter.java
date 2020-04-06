@@ -19,10 +19,7 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
-    private ImageView mNewsImage;
-    private TextView mNewsDescription;
-    private TextView mNewsCategory;
-    private TextView mNewsDate;
+
 
     //Member variable
     private List<News> mNewsList;
@@ -47,19 +44,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
-        TextView newsDescription = mNewsDescription.findViewById(R.id.newsDescription);
-        ImageView newsImage = mNewsImage.findViewById(R.id.newsImage);
-        TextView newsCategory = mNewsCategory.findViewById(R.id.newsCategory);
-        TextView newsDate = mNewsDate.findViewById(R.id.newsDate);
-
         News news = mNewsList.get(position);
 
         //Set the JSON queried data in the respective section
-        newsDescription.setText(news.getTitle());
-        newsCategory.setText(news.getSection());
-        newsDate.setText(news.getDate());
+        holder.newsDescription.setText(news.getTitle());
+        holder.newsCategory.setText(news.getSection());
+        holder.newsDate.setText(news.getDate());
         String imgUrl = news.getImageUrl();
-        Picasso.get().load(imgUrl).into(newsImage);
+        Picasso.get().load(imgUrl).into(holder.newsImage);
 
     }
 
@@ -71,15 +63,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     // stores and recycles views as they are scrolled off screen
-    public class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        ImageView newsImage;
+        TextView newsDescription, newsCategory, newsDate;
 
-        public NewsViewHolder(@NonNull View itemView) {
+        NewsViewHolder(@NonNull View itemView) {
             super(itemView);
-            mNewsDescription = itemView.findViewById(R.id.newsDescription);
-            mNewsCategory = itemView.findViewById(R.id.newsCategory);
-            mNewsDate = itemView.findViewById(R.id.newsDate);
-            mNewsImage = itemView.findViewById(R.id.newsImage);
+            newsDescription = itemView.findViewById(R.id.newsDescription);
+            newsCategory = itemView.findViewById(R.id.newsCategory);
+            newsDate = itemView.findViewById(R.id.newsDate);
+            newsImage = itemView.findViewById(R.id.newsImage);
             itemView.setOnClickListener(this);
         }
 

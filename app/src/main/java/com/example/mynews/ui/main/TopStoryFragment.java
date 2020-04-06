@@ -1,5 +1,6 @@
 package com.example.mynews.ui.main;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -46,6 +47,7 @@ public class TopStoryFragment extends Fragment {
         mNewsList = new ArrayList<>();
         mTopStoryViewModel = new TopStoryViewModel();
 
+
         //Creating the string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
                 new Response.Listener<String>() {
@@ -61,7 +63,7 @@ public class TopStoryFragment extends Fragment {
                             JSONArray newsArray = obj.getJSONArray("results");
 
                             //now looping through all the elements of the json array
-                            for (int i = 0; i < newsArray.length(); i++) {
+                                for (int i = 0; i < newsArray.length(); i++) {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
@@ -72,15 +74,15 @@ public class TopStoryFragment extends Fragment {
 
 
 
-                                //creating a hero object and giving them the values from json object
+                                //creating a news object and giving them the values from json object
                                 News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
                             }
+
                             mSectionsPagerAdapter.setNewsList(mNewsList);
                             mTopStoryViewModel.setNews(mNewsList);
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -111,6 +113,7 @@ public class TopStoryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_top_story, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
+        //LiveData Observer
         mTopStoryViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
             public void onChanged(List<News> news) {

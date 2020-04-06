@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -21,7 +20,6 @@ import com.example.mynews.R;
 import com.example.mynews.views.NewsAdapter;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -64,7 +62,7 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
-        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view_old);
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
