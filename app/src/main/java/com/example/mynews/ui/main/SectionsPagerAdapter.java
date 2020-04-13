@@ -33,6 +33,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new TopStoryFragment());
         mFragmentList.add(new MostPopularFragment());
+        mFragmentList.add(new ArticleSearchFragment());
 
     }
 

@@ -67,15 +67,13 @@ public class TopStoryFragment extends Fragment {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
-                                JSONArray mediaArray = newsObject.getJSONArray("media");
+                                JSONArray mediaArray = newsObject.getJSONArray("multimedia");
                                 JSONObject mediaObject = mediaArray.getJSONObject(0);
-                                JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
-                                JSONObject mediaIndex = mediaData.getJSONObject(0);
 
 
 
                                 //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
+                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaObject.getString("url"));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);

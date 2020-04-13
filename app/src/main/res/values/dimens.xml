@@ -6,4 +6,11 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+
+    <!-- Item recycler view -->
+    <dimen name="recycler_padding">1dip</dimen>
+    <dimen name="recycler_image_width">75dip</dimen>
+    <dimen name="recycler_image_height">75dip</dimen>
+    <dimen name="recycler_image_margin">5dip</dimen>
+    <dimen name="recycler_text_margin">10dp</dimen>
 </resources>
