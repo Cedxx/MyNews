@@ -46,39 +46,45 @@
         app:rowCount="4">
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxArt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
             android:text="Arts" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkBoxPolitic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
             android:text="Politics" />
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/checkBoxBusines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
             android:text="Business" />
 
         <CheckBox
-            android:id="@+id/checkBox4"
+            android:id="@+id/checkBoxSport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
             android:text="Sport" />
 
         <CheckBox
-            android:id="@+id/checkBox5"
+            android:id="@+id/checkBoxEntrepreneur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
             android:text="Entrepreneurs" />
 
         <CheckBox
-            android:id="@+id/checkBox6"
+            android:id="@+id/checkBoxTravel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
             android:text="Travel" />
     </androidx.gridlayout.widget.GridLayout>
 
@@ -90,7 +96,7 @@
         android:layout_margin="@dimen/default_gap">
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonValidation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"

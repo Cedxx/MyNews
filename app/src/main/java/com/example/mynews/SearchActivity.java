@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -71,6 +74,10 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             }
         });
 
+        //Retrieving sharedPreferences data
+        mSharedPreferences = getSharedPreferences(MyPref, MODE_PRIVATE);
+
+
     }
 
 
@@ -87,11 +94,61 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 case R.id.pickBeginDate:
                     calendar.set(year, month, dayOfMonth);
                     mBeginDateText.setText(dateFormat.format(calendar.getTime()));
+                    mEditor.putString("beginDate", String.valueOf(mBeginDateText));
                     break;
                 case R.id.pickEndDate:
                     calendar.set(year, month, dayOfMonth);
                     mEndDateText.setText(dateFormat.format(calendar.getTime()));
-            }
+                    mEditor.putString("endDate", String.valueOf(mEndDateText));
+            }mEditor.commit();
         }
     }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkBoxArt:
+                if (checked)
+                mEditor.putBoolean("arts", true);
+            else
+
+                mEditor.putBoolean("arts", false);
+                break;
+            case R.id.checkBoxPolitic:
+                if (checked)
+                    mEditor.putBoolean("politics", true);
+            else
+                    mEditor.putBoolean("politics", false);
+                break;
+            case R.id.checkBoxBusines:
+                if (checked)
+                    mEditor.putBoolean("business", true);
+                else
+                    mEditor.putBoolean("business", false);
+                break;
+            case R.id.checkBoxSport:
+                if (checked)
+                    mEditor.putBoolean("sports", true);
+                else
+                    mEditor.putBoolean("sports", false);
+                break;
+            case R.id.checkBoxEntrepreneur:
+                if (checked)
+                    mEditor.putBoolean("entrepreneurs", true);
+                else
+                    mEditor.putBoolean("entrepreneurs", false);
+                break;
+            case R.id.checkBoxTravel:
+                if (checked)
+                    mEditor.putBoolean("travels", true);
+                else
+                    mEditor.putBoolean("travels", false);
+                break;
+        }mEditor.commit();
+    }
+
+
 }
