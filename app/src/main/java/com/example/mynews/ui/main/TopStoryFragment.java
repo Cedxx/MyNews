@@ -1,6 +1,5 @@
 package com.example.mynews.ui.main;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mynews.News;
 import com.example.mynews.R;
-import com.example.mynews.views.NewsAdapter;
+import com.example.mynews.views.TopStoryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +37,7 @@ public class TopStoryFragment extends Fragment {
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private NewsAdapter mNewsAdapter;
+    private TopStoryAdapter mTopStoryAdapter;
     private TopStoryViewModel mTopStoryViewModel;
 
     @Override
@@ -116,8 +115,8 @@ public class TopStoryFragment extends Fragment {
             @Override
             public void onChanged(List<News> news) {
                 recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-                mNewsAdapter = new NewsAdapter(getContext(), mNewsList);
-                recyclerView.setAdapter(mNewsAdapter);
+                mTopStoryAdapter = new TopStoryAdapter(getContext(), mNewsList);
+                recyclerView.setAdapter(mTopStoryAdapter);
             }
         });
 

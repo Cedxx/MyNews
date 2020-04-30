@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Media -->
+            <ImageView
+                android:id="@+id/newsImage"
+                android:layout_width="@dimen/recycler_image_width"
+                android:layout_height="@dimen/recycler_image_height"
+                android:layout_margin="@dimen/recycler_image_margin"
+                android:contentDescription="image"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:id="@+id/newsCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="section"
+                        android:layout_weight="1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/newsDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:hint="date"/>
+
+                </LinearLayout>
+
+                <!-- Buttons -->
+
+                <TextView
+                    android:id="@+id/newsDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="@dimen/recycler_text_margin"
+                    android:ellipsize="end"
+                    android:hint="Title"
+                    android:maxLines="2" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</ScrollView>

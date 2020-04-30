@@ -10,15 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynews.R;
 import com.example.mynews.News;
+import com.example.mynews.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
-
+public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdapter.ArticleSearchViewHolder> {
 
 
     //Member variable
@@ -27,7 +25,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
 
     // data is passed into the constructor
-    public NewsAdapter(Context context, List<News> newsList){
+    public ArticleSearchAdapter(Context context, List<News> newsList) {
         this.mInflater = LayoutInflater.from(context);
         this.mNewsList = newsList;
     }
@@ -35,14 +33,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     // inflates the row layout from xml when needed
     @NonNull
     @Override
-    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArticleSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.row_news, parent, false);
-        return new NewsViewHolder(view);
+        return new ArticleSearchViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArticleSearchViewHolder holder, int position) {
 
         News news = mNewsList.get(position);
 
@@ -63,12 +61,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     // stores and recycles views as they are scrolled off screen
-    public static class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ArticleSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView newsImage;
         TextView newsDescription, newsCategory, newsDate;
 
-        NewsViewHolder(@NonNull View itemView) {
+        ArticleSearchViewHolder(@NonNull View itemView) {
             super(itemView);
             newsDescription = itemView.findViewById(R.id.newsDescription);
             newsCategory = itemView.findViewById(R.id.newsCategory);

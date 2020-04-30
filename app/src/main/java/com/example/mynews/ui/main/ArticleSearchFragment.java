@@ -1,12 +1,9 @@
 package com.example.mynews.ui.main;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +21,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mynews.News;
 import com.example.mynews.R;
-import com.example.mynews.views.NewsAdapter;
+import com.example.mynews.views.ArticleSearchAdapter;
+import com.example.mynews.views.TopStoryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,14 +39,14 @@ public class ArticleSearchFragment extends Fragment {
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private NewsAdapter mNewsAdapter;
-    private MostPopularViewModel mMostPopularViewModel;
+    private ArticleSearchAdapter mArticleSearchAdapter;
+    private ArticleSearchViewModel mArticleSearchViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
-        mMostPopularViewModel = new MostPopularViewModel();
+        mArticleSearchViewModel = new ArticleSearchViewModel();
 
 
         //Creating the string request to send request to the url
@@ -85,7 +83,7 @@ public class ArticleSearchFragment extends Fragment {
                             }
 
                             mSectionsPagerAdapter.setNewsList(mNewsList);
-                            mMostPopularViewModel.setNews(mNewsList);
+                            mArticleSearchViewModel.setNews(mNewsList);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -117,12 +115,12 @@ public class ArticleSearchFragment extends Fragment {
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
         //LiveData Observer
-        mMostPopularViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
+        mArticleSearchViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
             public void onChanged(List<News> news) {
                 recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-                mNewsAdapter = new NewsAdapter(getContext(), mNewsList);
-                recyclerView.setAdapter(mNewsAdapter);
+                mArticleSearchAdapter = new ArticleSearchAdapter(getContext(), mNewsList);
+                recyclerView.setAdapter(mArticleSearchAdapter);
             }
         });
 

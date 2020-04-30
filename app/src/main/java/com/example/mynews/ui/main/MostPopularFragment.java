@@ -19,7 +19,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mynews.News;
 import com.example.mynews.R;
-import com.example.mynews.views.NewsAdapter;
+import com.example.mynews.views.MostPopularAdapter;
+import com.example.mynews.views.TopStoryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +36,7 @@ public class MostPopularFragment extends Fragment {
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private NewsAdapter mNewsAdapter;
+    private MostPopularAdapter mMostPopularAdapter;
     private MostPopularViewModel mMostPopularViewModel;
 
     @Override
@@ -108,15 +109,15 @@ public class MostPopularFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_most_popular, container, false);
-        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = root.findViewById(R.id.most_popular_recycler_view);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
         //LiveData Observer
         mMostPopularViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
             public void onChanged(List<News> news) {
                 recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-                mNewsAdapter = new NewsAdapter(getContext(), mNewsList);
-                recyclerView.setAdapter(mNewsAdapter);
+                mMostPopularAdapter = new MostPopularAdapter(getContext(), mNewsList);
+                recyclerView.setAdapter(mMostPopularAdapter);
             }
         });
 
