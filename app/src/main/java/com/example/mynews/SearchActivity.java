@@ -74,10 +74,58 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             }
         });
 
-        //Retrieving sharedPreferences data
+        //Retrieving sharedPreferences data for the CheckBox
         mSharedPreferences = getSharedPreferences(MyPref, MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
 
+        boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
+        if(!artsIsChecked){
+            mEditor.putBoolean("arts", false);
+        }else {
+            CheckBox artsCheckBox = findViewById(R.id.checkBoxArt);
+            artsCheckBox.setChecked(true);
+        }
 
+        boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
+        if(!politicsIsChecked){
+            mEditor.putBoolean("politics", false);
+        }else{
+            CheckBox politicsCheckBox = findViewById(R.id.checkBoxPolitic);
+            politicsCheckBox.setChecked(true);
+        }
+
+        boolean businessIsChecked = mSharedPreferences.getBoolean("business", false);
+        if(!businessIsChecked){
+            mEditor.putBoolean("business", false);
+        }else{
+            CheckBox businessCheckBox = findViewById(R.id.checkBoxBusiness);
+            businessCheckBox.setChecked(true);
+        }
+
+        boolean sportsIsChecked = mSharedPreferences.getBoolean("sports", false);
+        if(!sportsIsChecked){
+            mEditor.putBoolean("sports", false);
+        }else{
+            CheckBox sportsCheckBox = findViewById(R.id.checkBoxSport);
+            sportsCheckBox.setChecked(true);
+        }
+
+        boolean entrepreneursIsChecked = mSharedPreferences.getBoolean("entrepreneurs", false);
+        if(!entrepreneursIsChecked){
+            mEditor.putBoolean("entrepreneurs", false);
+        }else{
+            CheckBox entrepreneursCheckBox = findViewById(R.id.checkBoxEntrepreneur);
+            entrepreneursCheckBox.setChecked(true);
+        }
+
+        boolean travelsIsChecked = mSharedPreferences.getBoolean("travels", false);
+        if(!travelsIsChecked){
+            mEditor.putBoolean("travels", false);
+        }else{
+            CheckBox travelsCheckBox = findViewById(R.id.checkBoxTravel);
+            travelsCheckBox.setChecked(true);
+        }
+        mEditor.commit();
     }
 
 
@@ -114,7 +162,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 if (checked)
                 mEditor.putBoolean("arts", true);
             else
-
                 mEditor.putBoolean("arts", false);
                 break;
             case R.id.checkBoxPolitic:
@@ -123,7 +170,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             else
                     mEditor.putBoolean("politics", false);
                 break;
-            case R.id.checkBoxBusines:
+            case R.id.checkBoxBusiness:
                 if (checked)
                     mEditor.putBoolean("business", true);
                 else

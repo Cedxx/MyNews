@@ -60,7 +60,7 @@
             android:text="Politics" />
 
         <CheckBox
-            android:id="@+id/checkBoxBusines"
+            android:id="@+id/checkBoxBusiness"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onCheckboxClicked"
