@@ -8,14 +8,13 @@
     android:orientation="vertical"
     android:layout_margin="@dimen/default_gap">
 
-    <SearchView
+    <EditText
         android:id="@+id/simpleSearchView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
         android:orientation="vertical"
-        android:layout_margin="@dimen/default_gap"
-        android:queryHint="@string/Search_query_term" />
+        android:tooltipText="@string/Search_query_term"
+        android:layout_margin="@dimen/default_gap" />
 
     <LinearLayout
         android:layout_width="match_parent"

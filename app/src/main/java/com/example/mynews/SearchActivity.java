@@ -3,18 +3,24 @@ package com.example.mynews;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -126,6 +132,27 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             travelsCheckBox.setChecked(true);
         }
         mEditor.commit();
+
+        //Search Query will be saved and pulled from here when the user type a search request.
+        final EditText searchView = findViewById(R.id.simpleSearchView);
+        searchView.setText(mSharedPreferences.getString("searchQuery", ""));
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mEditor.putString("searchQuery", s.toString()).commit();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mEditor.putString("searchQuery", s.toString()).commit();
+            }
+        });
+
     }
 
 
@@ -135,13 +162,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         // display the date chosen by the user
         final Calendar calendar = Calendar.getInstance(locale);
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
+        final String myFormat = "dd/MM/yy";
+        final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         if (getCurrentFocus() != null) {
             switch (getCurrentFocus().getId()) {
 
                 case R.id.pickBeginDate:
                     calendar.set(year, month, dayOfMonth);
-                    mBeginDateText.setText(dateFormat.format(calendar.getTime()));
+                    mBeginDateText.setText(sdf.format(calendar.getTime()));
                     mEditor.putString("beginDate", String.valueOf(mBeginDateText));
                     break;
                 case R.id.pickEndDate:
@@ -196,6 +225,5 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 break;
         }mEditor.commit();
     }
-
 
 }
