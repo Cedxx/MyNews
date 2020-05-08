@@ -77,8 +77,6 @@ public class TopStoryFragment extends Fragment {
                                 //adding the news to newsList
                                 mNewsList.add(news);
                             }
-
-                            mSectionsPagerAdapter.setNewsList(mNewsList);
                             mTopStoryViewModel.setNews(mNewsList);
 
                         } catch (JSONException e) {

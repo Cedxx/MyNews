@@ -66,20 +66,21 @@ public class MostPopularFragment extends Fragment {
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
                                 JSONArray mediaArray = newsObject.getJSONArray("media");
-                                JSONObject mediaObject = mediaArray.getJSONObject(0);
-                                JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
-                                JSONObject mediaIndex = mediaData.getJSONObject(0);
+                                JSONObject mediaIndex;
+                                if(mediaArray.length() > 0){
+                                    JSONObject mediaObject = mediaArray.getJSONObject(0);
+                                    JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
+                                    mediaIndex = mediaData.getJSONObject(0);
 
+                                    //creating a news object and giving them the values from json object
+                                    News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
 
+                                    //adding the news to newsList
+                                    mNewsList.add(news);
+                                }
 
-                                //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
-
-                                //adding the news to newsList
-                                mNewsList.add(news);
                             }
 
-                            mSectionsPagerAdapter.setNewsList(mNewsList);
                             mMostPopularViewModel.setNews(mNewsList);
 
                         } catch (JSONException e) {

@@ -35,7 +35,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     @NonNull
     @Override
     public MostPopularViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.most_populat_row, parent, false);
+        View view = mInflater.inflate(R.layout.row_news, parent, false);
         return new MostPopularViewHolder(view);
     }
 
@@ -50,7 +50,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         holder.newsCategory.setText(news.getSection());
         holder.newsDate.setText(news.getDate());
         String imgUrl = news.getImageUrl();
-        Picasso.get().load(imgUrl).into(holder.newsImage);
+        Picasso.get().load(imgUrl).error(R.mipmap.ic_launcher).into(holder.newsImage);
 
     }
 

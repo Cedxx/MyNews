@@ -2,6 +2,7 @@ package com.example.mynews.ui.main;
 
 import androidx.lifecycle.Observer;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,7 +23,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.mynews.News;
 import com.example.mynews.R;
 import com.example.mynews.views.ArticleSearchAdapter;
-import com.example.mynews.views.TopStoryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,21 +32,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ArticleSearchFragment extends Fragment {
 
     //the URL having the json data
     private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
+    private String ApiKey = "k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     private List<News> mNewsList;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ArticleSearchAdapter mArticleSearchAdapter;
     private ArticleSearchViewModel mArticleSearchViewModel;
+    // SharedPreferences variable
+    private static final String MyPref = "MyPrefsFile";
+    private SharedPreferences.Editor mEditor;
+    private SharedPreferences mSharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
         mArticleSearchViewModel = new ArticleSearchViewModel();
+
+        //retrieve SharedPreferences Data for the JSON query search
+        //Retrieving sharedPreferences data for the CheckBox
+        mSharedPreferences = getActivity().getSharedPreferences(MyPref, MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
 
 
         //Creating the string request to send request to the url
@@ -66,13 +78,12 @@ public class ArticleSearchFragment extends Fragment {
                             //now looping through all the elements of the json array
                             for (int i = 0; i < newsArray.length(); i++) {
                                 //getting the json object of the particular index inside the array
-                                JSONObject newsObject = newsArray.getJSONObject(i);
+                                JSONObject newsObject = newsArray.getJSONObject(0);
                                 String sectionObject = newsObject.getString("section");
                                 JSONArray mediaArray = newsObject.getJSONArray("media");
                                 JSONObject mediaObject = mediaArray.getJSONObject(0);
                                 JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
                                 JSONObject mediaIndex = mediaData.getJSONObject(0);
-
 
 
                                 //creating a news object and giving them the values from json object
@@ -81,8 +92,6 @@ public class ArticleSearchFragment extends Fragment {
                                 //adding the news to newsList
                                 mNewsList.add(news);
                             }
-
-                            mSectionsPagerAdapter.setNewsList(mNewsList);
                             mArticleSearchViewModel.setNews(mNewsList);
 
                         } catch (JSONException e) {
@@ -103,6 +112,21 @@ public class ArticleSearchFragment extends Fragment {
 
         //adding the string request to request queue
         requestQueue.add(stringRequest);
+
+        //test stringbuidler
+        StringBuilder myResearchString = new StringBuilder();
+        if(isArtChecked()) myResearchString.append("arts");
+        if(isPoliticsIsChecked()) myResearchString.append("politics");
+    }
+
+    private boolean isArtChecked() {
+        boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
+        return !artsIsChecked;
+    }
+
+    private boolean isPoliticsIsChecked(){
+        boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
+        return !politicsIsChecked;
     }
 
 
