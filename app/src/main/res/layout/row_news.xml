@@ -18,7 +18,6 @@
             <!-- Media -->
             <ImageView
                 android:id="@+id/newsImage"
-                android:background="@drawable/ic_launcher_background"
                 android:layout_width="@dimen/recycler_image_width"
                 android:layout_height="@dimen/recycler_image_height"
                 android:layout_margin="@dimen/recycler_image_margin"

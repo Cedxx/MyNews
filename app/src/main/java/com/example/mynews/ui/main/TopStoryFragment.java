@@ -36,7 +36,6 @@ public class TopStoryFragment extends Fragment {
     private static final String JSON_URL = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
     private TopStoryAdapter mTopStoryAdapter;
     private TopStoryViewModel mTopStoryViewModel;
 
@@ -45,7 +44,6 @@ public class TopStoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
         mTopStoryViewModel = new TopStoryViewModel();
-
 
         //Creating the string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
@@ -62,7 +60,7 @@ public class TopStoryFragment extends Fragment {
                             JSONArray newsArray = obj.getJSONArray("results");
 
                             //now looping through all the elements of the json array
-                                for (int i = 0; i < newsArray.length(); i++) {
+                            for (int i = 0; i < newsArray.length(); i++) {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
@@ -107,7 +105,6 @@ public class TopStoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_top_story, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
         //LiveData Observer
         mTopStoryViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override

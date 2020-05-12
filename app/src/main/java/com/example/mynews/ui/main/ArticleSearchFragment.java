@@ -37,11 +37,11 @@ import static android.content.Context.MODE_PRIVATE;
 public class ArticleSearchFragment extends Fragment {
 
     //the URL having the json data
-    private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
+    private static final String JSON_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+    private String ApiKey = "&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
+    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=arts&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
-    private String ApiKey = "k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     private List<News> mNewsList;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
     private ArticleSearchAdapter mArticleSearchAdapter;
     private ArticleSearchViewModel mArticleSearchViewModel;
     // SharedPreferences variable
@@ -60,9 +60,13 @@ public class ArticleSearchFragment extends Fragment {
         mSharedPreferences = getActivity().getSharedPreferences(MyPref, MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
+        //API key builder
+        // https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=arts&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv
+
+        //final String jsonApiSearchQuery = JSON_URL+"q="+ stringBuilder()+ApiKey;
 
         //Creating the string request to send request to the url
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, jsonText,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -73,7 +77,7 @@ public class ArticleSearchFragment extends Fragment {
 
                             //we have the array named newsArray inside the object
                             //so here we are getting that json array
-                            JSONArray newsArray = obj.getJSONArray("results");
+                            JSONArray newsArray = obj.getJSONArray("docs");
 
                             //now looping through all the elements of the json array
                             for (int i = 0; i < newsArray.length(); i++) {
@@ -87,7 +91,7 @@ public class ArticleSearchFragment extends Fragment {
 
 
                                 //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
+                                News news = new News(newsObject.getString("abstract"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
@@ -112,21 +116,26 @@ public class ArticleSearchFragment extends Fragment {
 
         //adding the string request to request queue
         requestQueue.add(stringRequest);
+    }
 
-        //test stringbuidler
+    private String jsonApiSearchQuery(){
+        return JSON_URL+"fq="+ stringBuilder()+ApiKey;
+    }
+
+    private String stringBuilder(){
+        //test string builder
         StringBuilder myResearchString = new StringBuilder();
         if(isArtChecked()) myResearchString.append("arts");
-        if(isPoliticsIsChecked()) myResearchString.append("politics");
+        //if(isPoliticsIsChecked()) myResearchString.append("politics");
+        return myResearchString.toString();
     }
 
     private boolean isArtChecked() {
-        boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
-        return !artsIsChecked;
+        return mSharedPreferences.getBoolean("arts", true);
     }
 
     private boolean isPoliticsIsChecked(){
-        boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
-        return !politicsIsChecked;
+        return mSharedPreferences.getBoolean("politics", true);
     }
 
 
@@ -137,7 +146,6 @@ public class ArticleSearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_article_search, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
         //LiveData Observer
         mArticleSearchViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
@@ -150,4 +158,5 @@ public class ArticleSearchFragment extends Fragment {
 
         return root;
     }
+
 }

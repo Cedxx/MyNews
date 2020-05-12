@@ -35,7 +35,6 @@ public class MostPopularFragment extends Fragment {
     private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
     private MostPopularAdapter mMostPopularAdapter;
     private MostPopularViewModel mMostPopularViewModel;
 
@@ -44,7 +43,6 @@ public class MostPopularFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
         mMostPopularViewModel = new MostPopularViewModel();
-
 
         //Creating the string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
@@ -111,7 +109,6 @@ public class MostPopularFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_most_popular, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.most_popular_recycler_view);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getParentFragmentManager());
         //LiveData Observer
         mMostPopularViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
