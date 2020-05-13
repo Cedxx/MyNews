@@ -35,6 +35,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     private EditText mBeginDateText;
     private EditText mEndDateText;
     private Locale locale;
+    private EditText mSearchView;
     private Button mSearchButton;
 
     private DialogFragment datePicker;
@@ -141,12 +142,12 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         mEditor.commit();
 
         //Search Query will be saved and pulled from here when the user type a search request.
-        final EditText searchView = findViewById(R.id.simpleSearchView);
+        mSearchView = findViewById(R.id.simpleSearchView);
         //retrieving the default save data for the search Query
-        searchView.setText(mSharedPreferences.getString("searchQuery", ""));
+        mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
         //Set an OnKeyListener to listen to specific key press
 
-        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mSearchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus){
@@ -155,14 +156,14 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             }
         });
 
-        searchView.setOnKeyListener(new View.OnKeyListener() {
+        mSearchView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
-                    searchView.addTextChangedListener(new TextWatcher() {
+                    mSearchView.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                         }
@@ -185,7 +186,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 return false;
             }
         });
-
 
     }
 
@@ -268,8 +268,19 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }mEditor.commit();
     }
 
+
     //On click action when pressing the Search button.
     public void onSearchButtonClick(){
+
+        mSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( mSearchView.getText().toString().length() == 0 )
+                    mSearchButton.setError( "First name is required!" );
+
+            }
+        });
+
 
     }
 
