@@ -1,6 +1,7 @@
 package com.example.mynews.ui.main;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +21,9 @@ import java.util.List;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.top_story, R.string.most_popular, R.string.sport};
+    private final int[] TAB_TITLES = new int[]{R.string.top_story, R.string.most_popular, R.string.sport};
     private final Context mContext;
 
     private List<Fragment> mFragmentList;
@@ -55,5 +57,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Show the total pages.
         return mFragmentList.size();
     }
+
 
 }

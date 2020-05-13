@@ -1,6 +1,9 @@
 package com.example.mynews;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +11,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -15,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -23,12 +28,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity implements DatePickerFragment.OnDateSetListener {
 
     private EditText mBeginDateText;
     private EditText mEndDateText;
     private Locale locale;
+    private Button mSearchButton;
 
     private DialogFragment datePicker;
 
@@ -135,25 +142,60 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
         //Search Query will be saved and pulled from here when the user type a search request.
         final EditText searchView = findViewById(R.id.simpleSearchView);
+        //retrieving the default save data for the search Query
         searchView.setText(mSharedPreferences.getString("searchQuery", ""));
-        searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        //Set an OnKeyListener to listen to specific key press
 
-            }
-
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mEditor.putString("searchQuery", s.toString()).commit();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mEditor.putString("searchQuery", s.toString()).commit();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    hideKeyboard(v);
+                }
             }
         });
 
+        searchView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    searchView.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            mEditor.putString("searchQuery", s.toString()).commit();
+                            //close the keyboard on Validate
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            mEditor.putString("searchQuery", s.toString()).commit();
+                            //close the keyboard on Validate
+                        }
+                    });
+                    hideKeyboard(v);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
     }
+
+    //Method that will force to close the keyboard once called
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        assert inputMethodManager != null;
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
 
 
 
@@ -224,6 +266,11 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                     mEditor.putBoolean("travels", false);
                 break;
         }mEditor.commit();
+    }
+
+    //On click action when pressing the Search button.
+    public void onSearchButtonClick(){
+
     }
 
 }
