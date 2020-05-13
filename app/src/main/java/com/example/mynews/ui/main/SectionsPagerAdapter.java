@@ -22,11 +22,17 @@ import java.util.List;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 
-    @StringRes
-    private final int[] TAB_TITLES = new int[]{R.string.top_story, R.string.most_popular, R.string.sport};
+    //@StringRes
+    //private final int[] TAB_TITLES = new int[]{R.string.top_story, R.string.most_popular, R.string.sport};
+    //The ArrayList that will store the TAB names
+    private ArrayList<String> TAB_TITLES = new ArrayList<>();
     private final Context mContext;
-
     private List<Fragment> mFragmentList;
+
+    // SharedPreferences variable
+    private static final String MyPref = "MyPrefsFile";
+    private SharedPreferences.Editor mEditor;
+    private SharedPreferences mSharedPreferences;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -35,6 +41,40 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mFragmentList.add(new TopStoryFragment());
         mFragmentList.add(new MostPopularFragment());
         mFragmentList.add(new ArticleSearchFragment());
+
+        mSharedPreferences = context.getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
+
+        TAB_TITLES.add("Top Stories");
+        TAB_TITLES.add("Most Popular");
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
+        if(!artsIsChecked) {
+            stringBuilder.append("Arts/");
+        }
+        boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
+        if(!politicsIsChecked){
+            stringBuilder.append("politics/");
+        }
+        boolean businessIsChecked = mSharedPreferences.getBoolean("business", false);
+        if(!businessIsChecked){
+            stringBuilder.append("business/");
+        }
+        boolean sportsIsChecked = mSharedPreferences.getBoolean("sports", false);
+        if(!sportsIsChecked){
+            stringBuilder.append("sports/");
+        }
+        boolean entrepreneursIsChecked = mSharedPreferences.getBoolean("entrepreneurs", false);
+        if(!entrepreneursIsChecked){
+            stringBuilder.append("entrepreneurs/");
+        }
+        boolean travelsIsChecked = mSharedPreferences.getBoolean("travels", false);
+        if(!travelsIsChecked){
+            stringBuilder.append("travels");
+        }
+        TAB_TITLES.add(stringBuilder.toString());
 
     }
 
@@ -49,7 +89,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
+        return TAB_TITLES.get(position);
     }
 
     @Override

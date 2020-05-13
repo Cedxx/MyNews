@@ -270,18 +270,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
 
     //On click action when pressing the Search button.
-    public void onSearchButtonClick(){
-
-        mSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if( mSearchView.getText().toString().length() == 0 )
-                    mSearchButton.setError( "First name is required!" );
-
-            }
-        });
-
-
+      public void onSearchButtonClick(View view) {
+        final Context context = getApplicationContext();
+        final CharSequence text = "Search Query can't be empty!";
+        final int duration = Toast.LENGTH_SHORT;
+        if( mSearchView.getText().toString().length() == 0 ){
+            Toast.makeText(context, text,duration).show();
+        getCurrentFocus();
+        }else{
+            finish();
+        }
     }
-
 }
