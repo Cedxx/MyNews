@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -39,7 +40,7 @@ public class ArticleSearchFragment extends Fragment {
     //the URL having the json data
     private static final String JSON_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
     private String ApiKey = "&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
-    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=arts&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
+    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:(\"Sports\" \"Foreign\")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private ArticleSearchAdapter mArticleSearchAdapter;
@@ -61,7 +62,7 @@ public class ArticleSearchFragment extends Fragment {
         mEditor = mSharedPreferences.edit();
 
         //API key builder
-        // https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=arts&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv
+        //https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Sports" "Foreign")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv
 
         //final String jsonApiSearchQuery = JSON_URL+"q="+ stringBuilder()+ApiKey;
 
@@ -77,21 +78,23 @@ public class ArticleSearchFragment extends Fragment {
 
                             //we have the array named newsArray inside the object
                             //so here we are getting that json array
-                            JSONArray newsArray = obj.getJSONArray("docs");
+                            JSONObject responseObj = obj.getJSONObject("response");
+
 
                             //now looping through all the elements of the json array
-                            for (int i = 0; i < newsArray.length(); i++) {
+                            for (int i = 0; i < responseObj.length(); i++) {
                                 //getting the json object of the particular index inside the array
-                                JSONObject newsObject = newsArray.getJSONObject(0);
-                                String sectionObject = newsObject.getString("section");
-                                JSONArray mediaArray = newsObject.getJSONArray("media");
-                                JSONObject mediaObject = mediaArray.getJSONObject(0);
-                                JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
-                                JSONObject mediaIndex = mediaData.getJSONObject(0);
+                                JSONArray newsArray = responseObj.getJSONArray("docs");
+                                JSONObject newsObject = newsArray.getJSONObject(i);
+                                String sectionObject = newsObject.getString("source");
+                                JSONArray mediaArray = newsObject.getJSONArray("multimedia");
+                                JSONObject mediaObject = mediaArray.getJSONObject(60);
+                                //JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
+                                //JSONObject mediaIndex = mediaData.getJSONObject(0);
 
 
                                 //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("abstract"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
+                                News news = new News(newsObject.getString("abstract"), newsObject.getString("pub_date"), sectionObject, mediaObject.getString("url"));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
@@ -125,8 +128,12 @@ public class ArticleSearchFragment extends Fragment {
     private String stringBuilder(){
         //test string builder
         StringBuilder myResearchString = new StringBuilder();
-        if(isArtChecked()) myResearchString.append("arts");
-        //if(isPoliticsIsChecked()) myResearchString.append("politics");
+        if(isArtChecked()) myResearchString.append("\"arts\"");
+        if(isPoliticsIsChecked()) myResearchString.append("\"politics\"");
+        if(businessIsChecked()) myResearchString.append("\"business\"");
+        if(sportsIsChecked()) myResearchString.append("\"sports\"");
+        if(entrepreneursIsChecked()) myResearchString.append("\"entrepreneurs\"");
+        if(travelsIsChecked()) myResearchString.append("\"travels\"");
         return myResearchString.toString();
     }
 
@@ -136,6 +143,22 @@ public class ArticleSearchFragment extends Fragment {
 
     private boolean isPoliticsIsChecked(){
         return mSharedPreferences.getBoolean("politics", true);
+    }
+
+    private boolean businessIsChecked(){
+        return mSharedPreferences.getBoolean("business", false);
+    }
+
+    private boolean sportsIsChecked(){
+      return mSharedPreferences.getBoolean("sports", false);
+    }
+
+    private boolean entrepreneursIsChecked(){
+        return mSharedPreferences.getBoolean("entrepreneurs", false);
+    }
+
+    private boolean travelsIsChecked(){
+        return mSharedPreferences.getBoolean("travels", false);
     }
 
 
