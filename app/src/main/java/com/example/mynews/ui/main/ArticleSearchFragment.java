@@ -31,7 +31,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.StringJoiner;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -76,17 +75,15 @@ public class ArticleSearchFragment extends Fragment {
                             //getting the whole json object from the response
                             JSONObject obj = new JSONObject(response);
 
-                            //we have the array named newsArray inside the object
-                            //so here we are getting that json array
+                            //getting the main object response for the JSON and its array
                             JSONObject responseObj = obj.getJSONObject("response");
-
+                            JSONArray newsArray = responseObj.getJSONArray("docs");
 
                             //now looping through all the elements of the json array
                             for (int i = 0; i < responseObj.length(); i++) {
                                 //getting the json object of the particular index inside the array
-                                JSONArray newsArray = responseObj.getJSONArray("docs");
                                 JSONObject newsObject = newsArray.getJSONObject(i);
-                                String sectionObject = newsObject.getString("source");
+                                String sectionObject = newsObject.getString("section_name");
                                 JSONArray mediaArray = newsObject.getJSONArray("multimedia");
                                 JSONObject mediaObject = mediaArray.getJSONObject(60);
                                 //JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
@@ -94,7 +91,7 @@ public class ArticleSearchFragment extends Fragment {
 
 
                                 //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("abstract"), newsObject.getString("pub_date"), sectionObject, mediaObject.getString("url"));
+                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, mediaObject.getString("url"));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
@@ -121,11 +118,13 @@ public class ArticleSearchFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    // Create the Full JSON URL base on sharedVariables data
     private String jsonApiSearchQuery(){
-        return JSON_URL+"fq="+ stringBuilder()+ApiKey;
+        return JSON_URL+"fq=news_desk:("+ checkBoxStringBuilder()+")"+ApiKey;
     }
 
-    private String stringBuilder(){
+    // A String Builder that is base on checkBox saved in SharedVariables
+    private String checkBoxStringBuilder(){
         //test string builder
         StringBuilder myResearchString = new StringBuilder();
         if(isArtChecked()) myResearchString.append("\"arts\"");
@@ -137,6 +136,9 @@ public class ArticleSearchFragment extends Fragment {
         return myResearchString.toString();
     }
 
+
+
+    //Simple method to retrieve if a checkBox is checked in the searchActivity
     private boolean isArtChecked() {
         return mSharedPreferences.getBoolean("arts", true);
     }
@@ -160,8 +162,22 @@ public class ArticleSearchFragment extends Fragment {
     private boolean travelsIsChecked(){
         return mSharedPreferences.getBoolean("travels", false);
     }
+    // end of the method
 
+    //method to retrieve the search query from the SearchActivity
+    private String searchQueryValue(){
+        return mSharedPreferences.getString("searchQuery","");
+    }
 
+    //method to retrieve the start date from the searchActivity
+    private String startDateValue(){
+        return mSharedPreferences.getString("beginDate", "");
+    }
+
+    //method to retrieve the end date from the searchActivity
+    private String endDateValue(){
+        return mSharedPreferences.getString("endDate", "");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
