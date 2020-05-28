@@ -61,17 +61,19 @@ public class MainActivity extends AppCompatActivity {
             this.startActivity(i);
             return true;
         }
+        if (item.getItemId() == R.id.notif){
+            Intent i = new Intent(this, NotificationsActivity.class);
+            this.startActivity(i);
+        }
+        if (item.getItemId() == R.id.about){
+            Toast.makeText(this, "NYT newspaper", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (item.getItemId() == R.id.help){
+            Toast.makeText(this, "If you need help contact us : mynews@nyt.com", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
-    }
-
-    //Method show the Help Setting option when the icon is clicked
-    public void onHelpSettingItemClick(MenuItem item) {
-        Toast.makeText(this, "If you need help contact us : mynews@nyt.com", Toast.LENGTH_SHORT).show();
-    }
-
-    //Method show the about Setting option when the icon is clicked
-    public void onAboutSettingItemClick(MenuItem item){
-        Toast.makeText(this, "NYT newspaper", Toast.LENGTH_SHORT).show();
     }
 
 

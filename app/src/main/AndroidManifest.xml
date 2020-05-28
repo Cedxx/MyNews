@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".SearchActivity" />
+        <activity android:name=".NotificationsActivity" />
         <activity
             android:name=".MainActivity">
             <intent-filter>

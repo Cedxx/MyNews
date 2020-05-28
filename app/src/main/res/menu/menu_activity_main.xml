@@ -19,13 +19,11 @@
         android:id="@+id/help"
         android:icon="@drawable/ic_more_vert_white_24dp"
         android:title="@string/help"
-        android:onClick="onHelpSettingItemClick"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/about"
         android:icon="@drawable/ic_more_vert_white_24dp"
         android:title="@string/about"
-        android:onClick="onAboutSettingItemClick"
         app:showAsAction="never"/>
 </menu>
