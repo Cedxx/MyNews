@@ -8,11 +8,24 @@
         app:showAsAction="ifRoom"
         android:title="@string/search">
     </item>
+
     <item
-        android:id="@+id/menu_activity_main_params"
+        android:id="@+id/notif"
         android:icon="@drawable/ic_more_vert_white_24dp"
-        app:showAsAction="ifRoom"
-        android:title="@string/setting"
-        android:onClick="onSettingItemClick">
-    </item>
+        android:title="@string/notifications"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:title="@string/help"
+        android:onClick="onHelpSettingItemClick"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:title="@string/about"
+        android:onClick="onAboutSettingItemClick"
+        app:showAsAction="never"/>
 </menu>

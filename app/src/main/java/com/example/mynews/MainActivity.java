@@ -64,10 +64,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Method show the Setting option when the icon is clicked
-    public void onSettingItemClick(MenuItem item) {
-        // The setting MenuItem was clicked
-        // All other menu item clicks are handled onOptionsItemSelected()
+    //Method show the Help Setting option when the icon is clicked
+    public void onHelpSettingItemClick(MenuItem item) {
+        Toast.makeText(this, "If you need help contact us : mynews@nyt.com", Toast.LENGTH_SHORT).show();
+    }
+
+    //Method show the about Setting option when the icon is clicked
+    public void onAboutSettingItemClick(MenuItem item){
+        Toast.makeText(this, "NYT newspaper", Toast.LENGTH_SHORT).show();
     }
 
 
