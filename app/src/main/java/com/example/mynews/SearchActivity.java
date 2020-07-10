@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -21,11 +22,13 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
@@ -38,6 +41,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     private EditText mSearchView;
     private Button mSearchButton;
 
+    private ArrayList<String> categoriesFields;
+
     private DialogFragment datePicker;
 
     // SharedPreferences variable
@@ -49,8 +54,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Retrieving sharedPreferences data for the CheckBox
+        mSharedPreferences = getSharedPreferences(MyPref, MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
+
         // Linking the Search Main element to the view
         setContentView(R.layout.search_main);
+
+        // Creating the list in a array for the selected categories
+        categoriesFields = new ArrayList<String>();
 
         locale = getResources().getConfiguration().locale;
         datePicker = new DatePickerFragment();
@@ -59,6 +71,9 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         mBeginDateText = findViewById(R.id.pickBeginDate);
         //disable the keyboard input
         mBeginDateText.setInputType(InputType.TYPE_NULL);
+
+        //String startDate = mSharedPreferences.getString("searchQuery", "");
+        mBeginDateText.setText(mSharedPreferences.getString("beginDate",""));
         //Set the OnClickListener
         mBeginDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -88,13 +103,12 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             }
         });
 
-        //Retrieving sharedPreferences data for the CheckBox
-        mSharedPreferences = getSharedPreferences(MyPref, MODE_PRIVATE);
-        mEditor = mSharedPreferences.edit();
+
 
         boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
         if(!artsIsChecked){
             mEditor.putBoolean("arts", false);
+            categoriesFields.add("arts");
         }else {
             CheckBox artsCheckBox = findViewById(R.id.checkBoxArt);
             artsCheckBox.setChecked(true);
@@ -213,12 +227,12 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 case R.id.pickBeginDate:
                     calendar.set(year, month, dayOfMonth);
                     mBeginDateText.setText(sdf.format(calendar.getTime()));
-                    mEditor.putString("beginDate", String.valueOf(mBeginDateText));
+                    mEditor.putString("beginDate", sdf.format(calendar.getTime()));
                     break;
                 case R.id.pickEndDate:
                     calendar.set(year, month, dayOfMonth);
                     mEndDateText.setText(dateFormat.format(calendar.getTime()));
-                    mEditor.putString("endDate", String.valueOf(mEndDateText));
+                    mEditor.putString("endDate", sdf.format(calendar.getTime()));
             }mEditor.commit();
         }
     }
@@ -270,6 +284,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
 
     //On click action when pressing the Search button.
+      @RequiresApi(api = Build.VERSION_CODES.O)
       public void onSearchButtonClick(View view) {
         final Context context = getApplicationContext();
         final CharSequence text = "Search Query can't be empty!";
@@ -278,6 +293,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             Toast.makeText(context, text,duration).show();
         getCurrentFocus();
         }else{
+            String fields = String.join(" ", categoriesFields);
+            mEditor.putString("categoriesQuery", fields).commit();
             finish();
         }
     }

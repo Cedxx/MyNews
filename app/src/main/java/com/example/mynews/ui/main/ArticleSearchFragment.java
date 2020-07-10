@@ -39,7 +39,8 @@ public class ArticleSearchFragment extends Fragment {
     //the URL having the json data
     private static final String JSON_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
     private String ApiKey = "&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
-    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:(\"Sports\" \"Foreign\")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
+    private String baseImageUrl = "https://static01.nyt.com/";
+    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:(\"Sports\" \"Foreign\")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv&q=covid19";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private ArticleSearchAdapter mArticleSearchAdapter;
@@ -48,6 +49,9 @@ public class ArticleSearchFragment extends Fragment {
     private static final String MyPref = "MyPrefsFile";
     private SharedPreferences.Editor mEditor;
     private SharedPreferences mSharedPreferences;
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,18 +84,32 @@ public class ArticleSearchFragment extends Fragment {
                             JSONArray newsArray = responseObj.getJSONArray("docs");
 
                             //now looping through all the elements of the json array
-                            for (int i = 0; i < responseObj.length(); i++) {
+                            for (int i = 0; i < responseObj.length() -1; i++) {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section_name");
                                 JSONArray mediaArray = newsObject.getJSONArray("multimedia");
-                                JSONObject mediaObject = mediaArray.getJSONObject(60);
+                                JSONObject articleMedia = new JSONObject();
+                                //String articleMediaUrl = "";
+                                for (int j = 0; j < mediaArray.length() -1; j++) {
+                                    JSONObject mediaObject = mediaArray.getJSONObject(j);
+                                    if(mediaObject.getInt("height") == 75) {
+                                        mediaObject.getString("url");
+                                        //articleMediaUrl = mediaImageUrlString();
+                                        articleMedia = mediaObject;
+                                    }else if(mediaObject.getInt("height") > 75){
+                                        articleMedia = mediaObject;
+                                    }else {
+                                        articleMedia = mediaArray.getJSONObject(0);
+                                    }
+                                }
+                                //JSONObject mediaObject = mediaArray.getJSONObject(60);
                                 //JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
                                 //JSONObject mediaIndex = mediaData.getJSONObject(0);
 
 
                                 //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, mediaObject.getString("url"));
+                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMedia.getString(mediaImageUrlString()));
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
@@ -121,6 +139,14 @@ public class ArticleSearchFragment extends Fragment {
     // Create the Full JSON URL base on sharedVariables data
     private String jsonApiSearchQuery(){
         return JSON_URL+"fq=news_desk:("+ checkBoxStringBuilder()+")"+ApiKey;
+    }
+
+    //String builder for the MediaImageUrl
+    private String mediaImageUrlString(){
+        StringBuilder myMediaImageUrl = new StringBuilder();
+        myMediaImageUrl.append(baseImageUrl);
+        myMediaImageUrl.append("url");
+        return myMediaImageUrl.toString();
     }
 
     // A String Builder that is base on checkBox saved in SharedVariables
