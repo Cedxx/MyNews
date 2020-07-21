@@ -49,6 +49,7 @@ public class ArticleSearchFragment extends Fragment {
     private static final String MyPref = "MyPrefsFile";
     private SharedPreferences.Editor mEditor;
     private SharedPreferences mSharedPreferences;
+    //private JSONObject articleMedia;
 
 
 
@@ -90,16 +91,23 @@ public class ArticleSearchFragment extends Fragment {
                                 String sectionObject = newsObject.getString("section_name");
                                 JSONArray mediaArray = newsObject.getJSONArray("multimedia");
                                 JSONObject articleMedia = new JSONObject();
-                                //String articleMediaUrl = "";
+                                String articleMediaUrl = "";
                                 for (int j = 0; j < mediaArray.length() -1; j++) {
                                     JSONObject mediaObject = mediaArray.getJSONObject(j);
+                                    StringBuilder myMediaImageUrl = new StringBuilder();
+                                    myMediaImageUrl.append(baseImageUrl);
                                     if(mediaObject.getInt("height") == 75) {
-                                        mediaObject.getString("url");
-                                        //articleMediaUrl = mediaImageUrlString();
+                                        myMediaImageUrl.append(mediaObject.getString("url"));
+                                        articleMediaUrl = myMediaImageUrl.toString();
                                         articleMedia = mediaObject;
                                     }else if(mediaObject.getInt("height") > 75){
+                                        myMediaImageUrl.append(mediaObject.getString("url"));
+                                        articleMediaUrl = myMediaImageUrl.toString();
                                         articleMedia = mediaObject;
                                     }else {
+                                        JSONObject mediaDefaultObject = mediaArray.getJSONObject(0);
+                                        myMediaImageUrl.append(mediaDefaultObject.getString("url"));
+                                        articleMediaUrl = myMediaImageUrl.toString();
                                         articleMedia = mediaArray.getJSONObject(0);
                                     }
                                 }
@@ -109,7 +117,7 @@ public class ArticleSearchFragment extends Fragment {
 
 
                                 //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMedia.getString(mediaImageUrlString()));
+                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMediaUrl);
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
