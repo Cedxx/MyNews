@@ -2,6 +2,7 @@ package com.example.mynews.ui.main;
 
 import androidx.lifecycle.Observer;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -66,6 +67,11 @@ public class ArticleSearchFragment extends Fragment {
         //Retrieving sharedPreferences data for the CheckBox
         mSharedPreferences = getActivity().getSharedPreferences(MyPref, MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
+
+        final Context context = getContext();
+        final CharSequence text = jsonApiSearchQueryVariable();
+        final int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, text,duration).show();
 
         //API key builder
         //https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Sports" "Foreign")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv
@@ -152,11 +158,19 @@ public class ArticleSearchFragment extends Fragment {
     }
 
     //String builder for the MediaImageUrl
-    private String mediaImageUrlString(){
-        StringBuilder myMediaImageUrl = new StringBuilder();
-        myMediaImageUrl.append(baseImageUrl);
-        myMediaImageUrl.append("url");
-        return myMediaImageUrl.toString();
+    private String jsonApiSearchQueryVariable(){
+        StringBuilder myJsonApiQuery = new StringBuilder();
+        myJsonApiQuery.append(JSON_URL);
+        myJsonApiQuery.append("fq=news_desk:(");
+        if(isArtChecked()) myJsonApiQuery.append("\"arts\"");
+        if(isPoliticsIsChecked()) myJsonApiQuery.append("\"politics\"");
+        if(businessIsChecked()) myJsonApiQuery.append("\"business\"");
+        if(sportsIsChecked()) myJsonApiQuery.append("\"sports\"");
+        if(entrepreneursIsChecked()) myJsonApiQuery.append("\"entrepreneurs\"");
+        if(travelsIsChecked()) myJsonApiQuery.append("\"travels\"");
+        myJsonApiQuery.append(")");
+        myJsonApiQuery.append(ApiKey);
+        return myJsonApiQuery.toString();
     }
 
     // A String Builder that is base on checkBox saved in SharedVariables
