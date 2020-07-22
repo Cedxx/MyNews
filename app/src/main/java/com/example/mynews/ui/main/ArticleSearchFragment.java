@@ -40,7 +40,7 @@ public class ArticleSearchFragment extends Fragment {
     private static final String JSON_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
     private String ApiKey = "&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     private String baseImageUrl = "https://static01.nyt.com/";
-    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:(\"Sports\" \"Foreign\")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv&q=covid19";
+    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:(\"Sports\")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv&q=motogp";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private ArticleSearchAdapter mArticleSearchAdapter;
@@ -49,7 +49,9 @@ public class ArticleSearchFragment extends Fragment {
     private static final String MyPref = "MyPrefsFile";
     private SharedPreferences.Editor mEditor;
     private SharedPreferences mSharedPreferences;
-    //private JSONObject articleMedia;
+    //JSON variable
+    private JSONObject articleMedia = new JSONObject();
+    private String articleMediaUrl = "";
 
 
 
@@ -85,15 +87,15 @@ public class ArticleSearchFragment extends Fragment {
                             JSONArray newsArray = responseObj.getJSONArray("docs");
 
                             //now looping through all the elements of the json array
-                            for (int i = 0; i < responseObj.length() -1; i++) {
+                            for (int i = 0; i < newsArray.length() -1; i++) {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section_name");
                                 JSONArray mediaArray = newsObject.getJSONArray("multimedia");
-                                JSONObject articleMedia = new JSONObject();
-                                String articleMediaUrl = "";
+                                //JSONObject articleMedia = new JSONObject();
+                                //String articleMediaUrl = "";
                                 for (int j = 0; j < mediaArray.length() -1; j++) {
-                                    JSONObject mediaObject = mediaArray.getJSONObject(j);
+                                    JSONObject mediaObject = mediaArray.getJSONObject(0);
                                     StringBuilder myMediaImageUrl = new StringBuilder();
                                     myMediaImageUrl.append(baseImageUrl);
                                     if(mediaObject.getInt("height") == 75) {
