@@ -51,8 +51,11 @@ public class TopStoryAdapter extends RecyclerView.Adapter<TopStoryAdapter.TopSto
         holder.newsCategory.setText(news.getSection());
         holder.newsDate.setText(news.getDate());
         String imgUrl = news.getImageUrl();
-        Picasso.get().load(imgUrl).into(holder.newsImage);
-
+        if(imgUrl.isEmpty()){
+            holder.newsImage.setImageResource(R.mipmap.ic_launcher);
+        }else {
+            Picasso.get().load(imgUrl).into(holder.newsImage);
+        }
     }
 
 

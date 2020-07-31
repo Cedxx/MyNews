@@ -50,8 +50,11 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         holder.newsCategory.setText(news.getSection());
         holder.newsDate.setText(news.getDate());
         String imgUrl = news.getImageUrl();
-        Picasso.get().load(imgUrl).error(R.mipmap.ic_launcher).into(holder.newsImage);
-
+        if(imgUrl.isEmpty()){
+            holder.newsImage.setImageResource(R.mipmap.ic_launcher);
+        }else {
+            Picasso.get().load(imgUrl).into(holder.newsImage);
+        }
     }
 
 

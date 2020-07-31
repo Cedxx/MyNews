@@ -111,10 +111,10 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
         if(!artsIsChecked){
             mEditor.putBoolean("arts", false);
-            categoriesFields.add("arts");
         }else {
             CheckBox artsCheckBox = findViewById(R.id.checkBoxArt);
             artsCheckBox.setChecked(true);
+            categoriesFields.add("arts");
         }
 
         boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
@@ -123,6 +123,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }else{
             CheckBox politicsCheckBox = findViewById(R.id.checkBoxPolitic);
             politicsCheckBox.setChecked(true);
+            categoriesFields.add("politics");
         }
 
         boolean businessIsChecked = mSharedPreferences.getBoolean("business", false);
@@ -131,6 +132,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }else{
             CheckBox businessCheckBox = findViewById(R.id.checkBoxBusiness);
             businessCheckBox.setChecked(true);
+            categoriesFields.add("business");
         }
 
         boolean sportsIsChecked = mSharedPreferences.getBoolean("sports", false);
@@ -139,6 +141,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }else{
             CheckBox sportsCheckBox = findViewById(R.id.checkBoxSport);
             sportsCheckBox.setChecked(true);
+            categoriesFields.add("sports");
         }
 
         boolean entrepreneursIsChecked = mSharedPreferences.getBoolean("entrepreneurs", false);
@@ -147,6 +150,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }else{
             CheckBox entrepreneursCheckBox = findViewById(R.id.checkBoxEntrepreneur);
             entrepreneursCheckBox.setChecked(true);
+            categoriesFields.add("entrepreneurs");
         }
 
         boolean travelsIsChecked = mSharedPreferences.getBoolean("travels", false);
@@ -155,6 +159,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }else{
             CheckBox travelsCheckBox = findViewById(R.id.checkBoxTravel);
             travelsCheckBox.setChecked(true);
+            categoriesFields.add("travels");
         }
         mEditor.commit();
 
@@ -270,7 +275,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             Toast.makeText(context, text,duration).show();
         getCurrentFocus();
         }else{
-            String fields = String.join(" ", categoriesFields);
+            String fields = String.join("/", categoriesFields);
             mEditor.putString("categoriesQuery", fields).commit();
             finish();
         }

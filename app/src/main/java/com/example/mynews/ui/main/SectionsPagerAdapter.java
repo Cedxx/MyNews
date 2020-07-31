@@ -47,34 +47,36 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         TAB_TITLES.add("Top Stories");
         TAB_TITLES.add("Most Popular");
+        TAB_TITLES.add(categoriesQueryValue());
 
-        StringBuilder stringBuilder = new StringBuilder();
 
-        boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
-        if(!artsIsChecked) {
-            stringBuilder.append("Arts/");
-        }
-        boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
-        if(!politicsIsChecked){
-            stringBuilder.append("politics/");
-        }
-        boolean businessIsChecked = mSharedPreferences.getBoolean("business", false);
-        if(!businessIsChecked){
-            stringBuilder.append("business/");
-        }
-        boolean sportsIsChecked = mSharedPreferences.getBoolean("sports", false);
-        if(!sportsIsChecked){
-            stringBuilder.append("sports/");
-        }
-        boolean entrepreneursIsChecked = mSharedPreferences.getBoolean("entrepreneurs", false);
-        if(!entrepreneursIsChecked){
-            stringBuilder.append("entrepreneurs/");
-        }
-        boolean travelsIsChecked = mSharedPreferences.getBoolean("travels", false);
-        if(!travelsIsChecked){
-            stringBuilder.append("travels");
-        }
-        TAB_TITLES.add(stringBuilder.toString());
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
+//        if(!artsIsChecked) {
+//            stringBuilder.append("Arts/");
+//        }
+//        boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
+//        if(!politicsIsChecked){
+//            stringBuilder.append("politics/");
+//        }
+//        boolean businessIsChecked = mSharedPreferences.getBoolean("business", false);
+//        if(!businessIsChecked){
+//            stringBuilder.append("business/");
+//        }
+//        boolean sportsIsChecked = mSharedPreferences.getBoolean("sports", false);
+//        if(!sportsIsChecked){
+//            stringBuilder.append("sports/");
+//        }
+//        boolean entrepreneursIsChecked = mSharedPreferences.getBoolean("entrepreneurs", false);
+//        if(!entrepreneursIsChecked){
+//            stringBuilder.append("entrepreneurs/");
+//        }
+//        boolean travelsIsChecked = mSharedPreferences.getBoolean("travels", false);
+//        if(!travelsIsChecked){
+//            stringBuilder.append("travels");
+//        }
+//        TAB_TITLES.add(stringBuilder.toString());
 
     }
 
@@ -98,5 +100,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-
+    private String categoriesQueryValue(){
+        return mSharedPreferences.getString("categoriesQuery","");
+    }
 }
