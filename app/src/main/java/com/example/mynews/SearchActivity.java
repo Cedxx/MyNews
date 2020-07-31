@@ -12,6 +12,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -72,8 +73,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         //disable the keyboard input
         mBeginDateText.setInputType(InputType.TYPE_NULL);
 
-        //String startDate = mSharedPreferences.getString("searchQuery", "");
-        mBeginDateText.setText(mSharedPreferences.getString("beginDate",""));
+        //Retrieve the begin date from the sharedPrefs
+        mBeginDateText.setText(mSharedPreferences.getString("beginDate","Begin Date"));
         //Set the OnClickListener
         mBeginDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -90,6 +91,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         mEndDateText = findViewById(R.id.pickEndDate);
         //disable the keyboard input
         mEndDateText.setInputType(InputType.TYPE_NULL);
+        //Retrieve the end date from the sharedPrefs
+        mEndDateText.setText(mSharedPreferences.getString("endDate", "End Date"));
         //Set the OnClickListener
         mEndDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -161,45 +164,19 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
         //Set an OnKeyListener to listen to specific key press
 
-        mSearchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mSearchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    hideKeyboard(v);
-                }
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    mSearchView.setText(mSearchView.getText().toString());
+                    mEditor.putString("searchQuery", mSearchView.getText().toString()).commit();
+                    handled = true;
+                }hideKeyboard(v);
+                return handled;
             }
         });
 
-        mSearchView.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // If the event is a key-down event on the "enter" button
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    // Perform action on key press
-                    mSearchView.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            mEditor.putString("searchQuery", s.toString()).commit();
-                            //close the keyboard on Validate
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                            mEditor.putString("searchQuery", s.toString()).commit();
-                            //close the keyboard on Validate
-                        }
-                    });
-                    hideKeyboard(v);
-                    return true;
-                }
-                return false;
-            }
-        });
 
     }
 

@@ -68,18 +68,10 @@ public class ArticleSearchFragment extends Fragment {
         mSharedPreferences = getActivity().getSharedPreferences(MyPref, MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
-        final Context context = getContext();
-        final CharSequence text = jsonApiSearchQueryVariable();
-        final int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(context, text,duration).show();
-
-        //API key builder
-        //https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:("Sports" "Foreign")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv
-
         //final String jsonApiSearchQuery = JSON_URL+"q="+ stringBuilder()+ApiKey;
 
         //Creating the string request to send request to the url
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, jsonText,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, jsonApiSearchQueryVariable(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -98,8 +90,6 @@ public class ArticleSearchFragment extends Fragment {
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section_name");
                                 JSONArray mediaArray = newsObject.getJSONArray("multimedia");
-                                //JSONObject articleMedia = new JSONObject();
-                                //String articleMediaUrl = "";
                                 for (int j = 0; j < mediaArray.length() -1; j++) {
                                     JSONObject mediaObject = mediaArray.getJSONObject(0);
                                     StringBuilder myMediaImageUrl = new StringBuilder();
@@ -119,10 +109,6 @@ public class ArticleSearchFragment extends Fragment {
                                         articleMedia = mediaArray.getJSONObject(0);
                                     }
                                 }
-                                //JSONObject mediaObject = mediaArray.getJSONObject(60);
-                                //JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
-                                //JSONObject mediaIndex = mediaData.getJSONObject(0);
-
 
                                 //creating a news object and giving them the values from json object
                                 News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMediaUrl);
@@ -152,10 +138,6 @@ public class ArticleSearchFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    // Create the Full JSON URL base on sharedVariables data
-    private String jsonApiSearchQuery(){
-        return JSON_URL+"fq=news_desk:("+ checkBoxStringBuilder()+")"+ApiKey;
-    }
 
     //String builder for the MediaImageUrl
     private String jsonApiSearchQueryVariable(){
@@ -170,22 +152,10 @@ public class ArticleSearchFragment extends Fragment {
         if(travelsIsChecked()) myJsonApiQuery.append("\"travels\"");
         myJsonApiQuery.append(")");
         myJsonApiQuery.append(ApiKey);
+        myJsonApiQuery.append("&q=");
+        myJsonApiQuery.append(searchQueryValue());
         return myJsonApiQuery.toString();
     }
-
-    // A String Builder that is base on checkBox saved in SharedVariables
-    private String checkBoxStringBuilder(){
-        //test string builder
-        StringBuilder myResearchString = new StringBuilder();
-        if(isArtChecked()) myResearchString.append("\"arts\"");
-        if(isPoliticsIsChecked()) myResearchString.append("\"politics\"");
-        if(businessIsChecked()) myResearchString.append("\"business\"");
-        if(sportsIsChecked()) myResearchString.append("\"sports\"");
-        if(entrepreneursIsChecked()) myResearchString.append("\"entrepreneurs\"");
-        if(travelsIsChecked()) myResearchString.append("\"travels\"");
-        return myResearchString.toString();
-    }
-
 
 
     //Simple method to retrieve if a checkBox is checked in the searchActivity
