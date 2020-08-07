@@ -100,6 +100,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:switchMinWidth="56dp"
+            android:onClick="onTest"
             android:text="@string/enable_notifications_once_per_day"
             android:checked="false" />
 

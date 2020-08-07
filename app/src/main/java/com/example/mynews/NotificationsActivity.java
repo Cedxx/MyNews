@@ -1,22 +1,29 @@
 package com.example.mynews;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 
 import java.text.DateFormat;
@@ -32,6 +39,9 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
     private EditText mSearchView;
     private Button mSearchButton;
 
+    private static final String NOTIFICATION_ID_STRING = "1";
+    private static final int NOTIFICATION_ID = 1;
+
     private DialogFragment datePicker;
 
     // SharedPreferences variable
@@ -44,6 +54,10 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         setContentView(R.layout.notification_activity);
         locale = getResources().getConfiguration().locale;
         datePicker = new DatePickerFragment();
+
+        //start notification channel
+        createNotificationChannel();
+
 
         //Linking the Begin Date text area to the view
         mBeginDateText = findViewById(R.id.pickBeginDate);
@@ -135,50 +149,57 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         mSearchView = findViewById(R.id.simpleSearchView);
         //retrieving the default save data for the search Query
         mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
-        //Set an OnKeyListener to listen to specific key press
 
-        mSearchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        //Set an OnEditorActionListener to listen to specific key press
+        mSearchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    hideKeyboard(v);
-                }
-            }
-        });
-
-        mSearchView.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // If the event is a key-down event on the "enter" button
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    // Perform action on key press
-                    mSearchView.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            mEditor.putString("searchQuery", s.toString()).commit();
-                            //close the keyboard on Validate
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                            mEditor.putString("searchQuery", s.toString()).commit();
-                            //close the keyboard on Validate
-                        }
-                    });
-                    hideKeyboard(v);
-                    return true;
-                }
-                return false;
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    mSearchView.setText(mSearchView.getText().toString());
+                    mEditor.putString("searchQuery", mSearchView.getText().toString()).commit();
+                    handled = true;
+                }hideKeyboard(v);
+                return handled;
             }
         });
 
     }
+
+
+    //Notification builder
+    private void addNotification(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_ID_STRING)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("test")
+                .setContentText("this a test text")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        //test
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_ID_STRING, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
+
 
     //Method that will force to close the keyboard once called
     public void hideKeyboard(View view) {
@@ -261,7 +282,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
 
 
     //On click action when pressing the Search button.
-    public void onSearchButtonClick(View view) {
+    public void onTest(View view) {
         final Context context = getApplicationContext();
         final CharSequence text = "Search Query can't be empty!";
         final int duration = Toast.LENGTH_SHORT;
@@ -269,6 +290,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
             Toast.makeText(context, text,duration).show();
             getCurrentFocus();
         }else{
+            addNotification();
             finish();
         }
     }

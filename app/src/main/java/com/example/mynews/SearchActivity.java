@@ -4,6 +4,7 @@ package com.example.mynews;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,11 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
+
+import com.example.mynews.ui.main.ArticleSearchFragment;
+import com.example.mynews.ui.main.SectionsPagerAdapter;
+import com.example.mynews.views.ArticleSearchAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -167,8 +173,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         mSearchView = findViewById(R.id.simpleSearchView);
         //retrieving the default save data for the search Query
         mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
-        //Set an OnKeyListener to listen to specific key press
 
+        //Set an OnEditorActionListener to listen to specific key press
         mSearchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
