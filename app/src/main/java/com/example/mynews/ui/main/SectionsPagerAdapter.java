@@ -2,6 +2,10 @@ package com.example.mynews.ui.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,8 +13,15 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mynews.News;
 import com.example.mynews.R;
+import com.example.mynews.views.ArticleSearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +45,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private SharedPreferences.Editor mEditor;
     private SharedPreferences mSharedPreferences;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    private ArticleSearchViewModel tabTitleViewModel;
+
+    public SectionsPagerAdapter(final Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
         mFragmentList = new ArrayList<>();
@@ -42,14 +55,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mFragmentList.add(new MostPopularFragment());
         mFragmentList.add(new ArticleSearchFragment());
 
+        tabTitleViewModel = new ArticleSearchViewModel();
+
         mSharedPreferences = context.getSharedPreferences(MyPref, Context.MODE_PRIVATE);
         //mEditor = mSharedPreferences.edit();
 
         //set the corresponding name for each tab
         TAB_TITLES.add("Top Stories");
         TAB_TITLES.add("Most Popular");
-        TAB_TITLES.add(categoriesQueryValue());
-    }
+        //TAB_TITLES.add(categoriesQueryValue());
+
+
+
+}
 
     @NonNull
     @Override
@@ -61,7 +79,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Nullable
     @Override
-    public CharSequence getPageTitle(int position) {
+    public CharSequence getPageTitle(final int position) {
+        if(position == 2){
+            tabTitleViewModel.getTabTitle().observe((LifecycleOwner) this, new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    TAB_TITLES.set(position, s);
+                }
+            });
+        }
         return TAB_TITLES.get(position);
     }
 
@@ -74,4 +100,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private String categoriesQueryValue(){
         return mSharedPreferences.getString("categoriesQuery","");
     }
+
+
 }

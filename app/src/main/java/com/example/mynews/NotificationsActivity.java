@@ -95,7 +95,33 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         //Retrieving sharedPreferences data for the CheckBox
         mSharedPreferences = getSharedPreferences(MyPref, MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
+        //start the ifCheckBoxIsCheck method
+        ifCheckBoxIsCheck();
 
+
+        //Search Query will be saved and pulled from here when the user type a search request.
+        mSearchView = findViewById(R.id.simpleSearchView);
+        //retrieving the default save data for the search Query
+        mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
+
+        //Set an OnEditorActionListener to listen to specific key press
+        mSearchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    mSearchView.setText(mSearchView.getText().toString());
+                    mEditor.putString("searchQuery", mSearchView.getText().toString()).commit();
+                    handled = true;
+                }hideKeyboard(v);
+                return handled;
+            }
+        });
+
+    }
+
+    // This method will retrieve information from the SharedPreferences if the checkBox are set to True or False and set the proper value
+    private void ifCheckBoxIsCheck(){
         boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
         if(!artsIsChecked){
             mEditor.putBoolean("arts", false);
@@ -144,26 +170,6 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
             travelsCheckBox.setChecked(true);
         }
         mEditor.commit();
-
-        //Search Query will be saved and pulled from here when the user type a search request.
-        mSearchView = findViewById(R.id.simpleSearchView);
-        //retrieving the default save data for the search Query
-        mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
-
-        //Set an OnEditorActionListener to listen to specific key press
-        mSearchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                    mSearchView.setText(mSearchView.getText().toString());
-                    mEditor.putString("searchQuery", mSearchView.getText().toString()).commit();
-                    handled = true;
-                }hideKeyboard(v);
-                return handled;
-            }
-        });
-
     }
 
 
@@ -175,7 +181,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
                 .setContentText("this a test text")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        //test
+        //Notify the app
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(NOTIFICATION_ID, builder.build());
@@ -194,11 +200,10 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 
 
     //Method that will force to close the keyboard once called
@@ -208,9 +213,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-
-
-
+    // this method will handle the date variable from the user
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         // display the date chosen by the user
@@ -235,6 +238,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         }
     }
 
+    // this method will save the current state of the checkBox for each value in the SharedPreference
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -282,6 +286,8 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
 
 
     //On click action when pressing the Search button.
+    // if the searchQuery is empty, display a error message
+    // if all the data are properly set, start the notification process
     public void onTest(View view) {
         final Context context = getApplicationContext();
         final CharSequence text = "Search Query can't be empty!";

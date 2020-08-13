@@ -30,6 +30,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.mynews.ui.main.ArticleSearchFragment;
+import com.example.mynews.ui.main.ArticleSearchViewModel;
 import com.example.mynews.ui.main.SectionsPagerAdapter;
 import com.example.mynews.views.ArticleSearchAdapter;
 
@@ -56,6 +57,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     public static final String MyPref = "MyPrefsFile";
     protected SharedPreferences.Editor mEditor;
     protected SharedPreferences mSharedPreferences;
+
+    private ArticleSearchViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,6 +285,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         getCurrentFocus();
         }else{
             String fields = String.join("/", categoriesFields);
+            mViewModel.setNewsTabTitle(fields);
             mEditor.putString("categoriesQuery", fields).commit();
             finish();
         }
