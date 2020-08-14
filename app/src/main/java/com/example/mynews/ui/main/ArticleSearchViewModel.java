@@ -14,10 +14,6 @@ import java.util.List;
 
 public class ArticleSearchViewModel extends ViewModel {
 
-    // SharedPreferences variable
-    private static final String MyPref = "MyPrefsFile";
-    private SharedPreferences.Editor mEditor;
-    private SharedPreferences mSharedPreferences;
 
     //LiveData variable
     private MutableLiveData<List<News>> mNews = new MutableLiveData<>();
@@ -29,7 +25,11 @@ public class ArticleSearchViewModel extends ViewModel {
         }
     });
 
-    public LiveData<String> getTabTitle(){
+    //LiveData for the Tab Title
+    public MutableLiveData<String> getTabTitle(){
+        if(newsTabTitle == null) {
+            return new MutableLiveData<>();
+        }
         return newsTabTitle;
     }
 

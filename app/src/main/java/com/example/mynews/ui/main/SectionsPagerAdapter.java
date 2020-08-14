@@ -42,10 +42,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     // SharedPreferences variable
     private static final String MyPref = "MyPrefsFile";
-    private SharedPreferences.Editor mEditor;
     private SharedPreferences mSharedPreferences;
-
-    private ArticleSearchViewModel tabTitleViewModel;
 
     public SectionsPagerAdapter(final Context context, FragmentManager fm) {
         super(fm);
@@ -55,15 +52,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mFragmentList.add(new MostPopularFragment());
         mFragmentList.add(new ArticleSearchFragment());
 
-        tabTitleViewModel = new ArticleSearchViewModel();
-
         mSharedPreferences = context.getSharedPreferences(MyPref, Context.MODE_PRIVATE);
-        //mEditor = mSharedPreferences.edit();
 
         //set the corresponding name for each tab
         TAB_TITLES.add("Top Stories");
         TAB_TITLES.add("Most Popular");
-        //TAB_TITLES.add(categoriesQueryValue());
 
 
 
@@ -81,12 +74,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(final int position) {
         if(position == 2){
-            tabTitleViewModel.getTabTitle().observe((LifecycleOwner) this, new Observer<String>() {
-                @Override
-                public void onChanged(String s) {
-                    TAB_TITLES.set(position, s);
-                }
-            });
+            return mSharedPreferences.getString("categoriesQuery", "");
         }
         return TAB_TITLES.get(position);
     }
@@ -96,10 +84,4 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Show the total pages.
         return mFragmentList.size();
     }
-
-    private String categoriesQueryValue(){
-        return mSharedPreferences.getString("categoriesQuery","");
-    }
-
-
 }
