@@ -285,8 +285,10 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         getCurrentFocus();
         }else{
             String fields = String.join("/", categoriesFields);
-            mViewModel.setNewsTabTitle(fields);
             mEditor.putString("categoriesQuery", fields).commit();
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("TAB RESULT TITLE", fields);
+            setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }
     }

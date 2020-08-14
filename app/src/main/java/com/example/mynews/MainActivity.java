@@ -14,6 +14,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mynews.ui.main.ArticleSearchViewModel;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.Observer;
@@ -97,15 +99,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
-            case (SEARCH_RESULT_STATUS_CODE): {
-                if(resultCode == Activity.RESULT_OK) {
-                    this.mArticleSearchViewModel.setNewsTabTitle(data.getStringExtra("TAB RESULT TITLE"));
-                }
-                break;
+        if (requestCode == SEARCH_RESULT_STATUS_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                assert data != null;
+                this.mArticleSearchViewModel.setNewsTabTitle(data.getStringExtra("TAB RESULT TITLE"));
             }
         }
     }
