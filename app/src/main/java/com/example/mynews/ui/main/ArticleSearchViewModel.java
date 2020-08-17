@@ -18,6 +18,7 @@ public class ArticleSearchViewModel extends ViewModel {
     //LiveData variable
     private MutableLiveData<List<News>> mNews = new MutableLiveData<>();
     private MutableLiveData<String> newsTabTitle = new MutableLiveData<>();
+
         private LiveData<List<News>> mList = Transformations.map(mNews, new Function<List<News>, List<News>>() {
         @Override
         public List<News> apply(List<News> input) {

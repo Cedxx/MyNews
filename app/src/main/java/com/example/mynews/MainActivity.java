@@ -2,6 +2,7 @@ package com.example.mynews;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,11 +46,15 @@ public class MainActivity extends AppCompatActivity {
     //ViewModel variable
     private ArticleSearchViewModel mArticleSearchViewModel;
     private static final int SEARCH_RESULT_STATUS_CODE = 100;
+    private static final int SEARCH_TAB_INDEX = 2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Load the SharedPreferences data
+        mSharedPreferences = this.getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+
         //Load the views and the viewpager in the onCreate
         setContentView(R.layout.activity_main);
         final SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -64,9 +69,10 @@ public class MainActivity extends AppCompatActivity {
         mArticleSearchViewModel.getTabTitle().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                TabLayout.Tab tab = tabs.getTabAt(2);
-                assert tab != null;
+                TabLayout.Tab tab = tabs.getTabAt(SEARCH_TAB_INDEX);
                 tab.setText(s);
+                tabs.selectTab(tab);
+                sectionsPagerAdapter.setSearchTabTitle(s);
             }
         });
 
@@ -99,15 +105,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SEARCH_RESULT_STATUS_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                assert data != null;
-                this.mArticleSearchViewModel.setNewsTabTitle(data.getStringExtra("TAB RESULT TITLE"));
-            }
+        switch (requestCode){
+            case (SEARCH_RESULT_STATUS_CODE):{
+                if (resultCode == Activity.RESULT_OK) {
+                        this.mArticleSearchViewModel.setNewsTabTitle(data.getStringExtra("TAB_RESULT_TITLE"));
+                    }
+                break;
+                }
         }
+
     }
 
 

@@ -40,6 +40,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private final Context mContext;
     private List<Fragment> mFragmentList;
 
+    private String searchTitle;
+
     // SharedPreferences variable
     private static final String MyPref = "MyPrefsFile";
     private SharedPreferences mSharedPreferences;
@@ -58,6 +60,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         TAB_TITLES.add("Top Stories");
         TAB_TITLES.add("Most Popular");
 
+        //if searchTitle is empty, retrieve the sharedPref variable and set the defaut text message when empty
+        searchTitle = mSharedPreferences.getString("categoriesQuery", "No Search");
+
 
 
 }
@@ -74,7 +79,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(final int position) {
         if(position == 2){
-            return mSharedPreferences.getString("categoriesQuery", "");
+            return searchTitle;
         }
         return TAB_TITLES.get(position);
     }
@@ -83,5 +88,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         // Show the total pages.
         return mFragmentList.size();
+    }
+
+    public void setSearchTabTitle(String title){
+        this.searchTitle = title;
     }
 }

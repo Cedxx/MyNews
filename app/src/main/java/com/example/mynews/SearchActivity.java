@@ -59,7 +59,11 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     protected SharedPreferences mSharedPreferences;
 
     private ArticleSearchViewModel mViewModel;
+    private Intent resultIntent;
+    private String fields;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +77,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
         // Creating the list in a array for the selected categories
         categoriesFields = new ArrayList<String>();
+
+        //resultIntent = new Intent();
 
         locale = getResources().getConfiguration().locale;
         datePicker = new DatePickerFragment();
@@ -115,8 +121,36 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             }
         });
 
+        //Set the correct value in the sharedPreferences for the CheckBox
+        setSharedPreferencesForCheckBox();
+
+      //  testCode();
 
 
+
+        //Search Query will be saved and pulled from here when the user type a search request.
+        mSearchView = findViewById(R.id.simpleSearchView);
+        //retrieving the default save data for the search Query
+        mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
+
+        //Set an OnEditorActionListener to listen to specific key press
+        mSearchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    mSearchView.setText(mSearchView.getText().toString());
+                    mEditor.putString("searchQuery", mSearchView.getText().toString()).commit();
+                    handled = true;
+                }hideKeyboard(v);
+                return handled;
+            }
+        });
+
+
+    }
+
+    public void setSharedPreferencesForCheckBox(){
         boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
         if(!artsIsChecked){
             mEditor.putBoolean("arts", false);
@@ -171,27 +205,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             categoriesFields.add("travels");
         }
         mEditor.commit();
-
-        //Search Query will be saved and pulled from here when the user type a search request.
-        mSearchView = findViewById(R.id.simpleSearchView);
-        //retrieving the default save data for the search Query
-        mSearchView.setText(mSharedPreferences.getString("searchQuery", ""));
-
-        //Set an OnEditorActionListener to listen to specific key press
-        mSearchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                    mSearchView.setText(mSearchView.getText().toString());
-                    mEditor.putString("searchQuery", mSearchView.getText().toString()).commit();
-                    handled = true;
-                }hideKeyboard(v);
-                return handled;
-            }
-        });
-
-
     }
 
     //Method that will force to close the keyboard once called
@@ -200,8 +213,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
-
 
 
     @Override
@@ -235,40 +246,65 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.checkBoxArt:
-                if (checked)
-                mEditor.putBoolean("arts", true);
-            else
-                mEditor.putBoolean("arts", false);
+                if (checked) {
+                    mEditor.putBoolean("arts", true);
+                    categoriesFields.add("arts");
+                }
+            else {
+                    mEditor.putBoolean("arts", false);
+                    categoriesFields.remove("arts");
+                }
+
                 break;
             case R.id.checkBoxPolitic:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("politics", true);
-            else
+                   categoriesFields.add("politics");
+                }
+            else {
                     mEditor.putBoolean("politics", false);
+                    categoriesFields.remove("politics");
+                }
                 break;
             case R.id.checkBoxBusiness:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("business", true);
-                else
+                    categoriesFields.add("business");
+                }
+                else {
                     mEditor.putBoolean("business", false);
+                    categoriesFields.remove("business");
+                }
                 break;
             case R.id.checkBoxSport:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("sports", true);
-                else
+                    categoriesFields.add("sports");
+                }
+                else {
                     mEditor.putBoolean("sports", false);
+                    categoriesFields.remove("sports");
+                }
                 break;
             case R.id.checkBoxEntrepreneur:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("entrepreneurs", true);
-                else
+                     categoriesFields.add("entrepreneurs");
+                }
+                else {
                     mEditor.putBoolean("entrepreneurs", false);
+                    categoriesFields.remove("entrepreneurs");
+                }
                 break;
             case R.id.checkBoxTravel:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("travels", true);
-                else
+                    categoriesFields.add("travels");
+                }
+                else {
                     mEditor.putBoolean("travels", false);
+                    categoriesFields.remove("travels");
+                }
                 break;
         }mEditor.commit();
     }
@@ -284,11 +320,11 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             Toast.makeText(context, text,duration).show();
         getCurrentFocus();
         }else{
-            String fields = String.join("/", categoriesFields);
-            mEditor.putString("categoriesQuery", fields).commit();
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("TAB RESULT TITLE", fields);
-            setResult(Activity.RESULT_OK, resultIntent);
+              fields = String.join("/", categoriesFields);
+              mEditor.putString("categoriesQuery", fields).commit();
+              Intent resultIntent = new Intent();
+              resultIntent.putExtra("TAB_RESULT_TITLE", fields);
+              setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }
     }
