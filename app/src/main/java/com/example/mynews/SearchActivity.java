@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,20 +48,21 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     private EditText mEndDateText;
     private Locale locale;
     private EditText mSearchView;
-    private Button mSearchButton;
-
     private ArrayList<String> categoriesFields;
-
     private DialogFragment datePicker;
+
+    //CheckBox Variable
+    private CheckBox mCheckBoxArts;
+    private CheckBox mCheckBoxBusiness;
+    private CheckBox mCheckBoxEntrepreneurs;
+    private CheckBox mCheckBoxPolitics;
+    private CheckBox mCheckBoxSports;
+    private CheckBox mCheckBoxTravel;
 
     // SharedPreferences variable
     public static final String MyPref = "MyPrefsFile";
     protected SharedPreferences.Editor mEditor;
     protected SharedPreferences mSharedPreferences;
-
-    private ArticleSearchViewModel mViewModel;
-    private Intent resultIntent;
-    private String fields;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -76,9 +78,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         setContentView(R.layout.search_main);
 
         // Creating the list in a array for the selected categories
-        categoriesFields = new ArrayList<String>();
+        categoriesFields = new ArrayList<>();
 
-        //resultIntent = new Intent();
+        //initializing the CHeckBox view
+        mCheckBoxArts = findViewById(R.id.checkBoxArt);
+        mCheckBoxBusiness = findViewById(R.id.checkBoxBusiness);
+        mCheckBoxEntrepreneurs = findViewById(R.id.checkBoxEntrepreneur);
+        mCheckBoxPolitics = findViewById(R.id.checkBoxPolitic);
+        mCheckBoxSports = findViewById(R.id.checkBoxSport);
+        mCheckBoxTravel = findViewById(R.id.checkBoxTravel);
 
         locale = getResources().getConfiguration().locale;
         datePicker = new DatePickerFragment();
@@ -123,9 +131,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
         //Set the correct value in the sharedPreferences for the CheckBox
         setSharedPreferencesForCheckBox();
-
-      //  testCode();
-
 
 
         //Search Query will be saved and pulled from here when the user type a search request.
@@ -309,18 +314,38 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }mEditor.commit();
     }
 
+    //Method that will check if at least 1 checkBox is checked and if the Search Query is not empty
+    private boolean validateCriteria(){
+        final Context context = getApplicationContext();
+        final CharSequence text = "Required data : Search Query and at least one category";
+        final int duration = Toast.LENGTH_SHORT;
+
+        if (mSearchView.getText().toString().equals("") || (!mCheckBoxArts.isChecked() &&
+                !mCheckBoxBusiness.isChecked() &&
+                !mCheckBoxEntrepreneurs.isChecked() &&
+                !mCheckBoxPolitics.isChecked() &&
+                !mCheckBoxSports.isChecked() &&
+                !mCheckBoxTravel.isChecked())
+        ){
+            //when false, return a toast message to let the user know that one field is missing
+            Toast.makeText(context, text,duration).show();
+            return false;
+        }else return true;
+
+    }
+
 
     //On click action when pressing the Search button.
       @RequiresApi(api = Build.VERSION_CODES.O)
       public void onSearchButtonClick(View view) {
         final Context context = getApplicationContext();
-        final CharSequence text = "Search Query can't be empty!";
+        final CharSequence text = "Required data : Search Query and at least one category";
         final int duration = Toast.LENGTH_SHORT;
-        if( mSearchView.getText().toString().length() == 0 ){
-            Toast.makeText(context, text,duration).show();
+        if(!validateCriteria()){
+            //Toast.makeText(context, text,duration).show();
         getCurrentFocus();
         }else{
-              fields = String.join("/", categoriesFields);
+            String fields = String.join("/", categoriesFields);
               mEditor.putString("categoriesQuery", fields).commit();
               Intent resultIntent = new Intent();
               resultIntent.putExtra("TAB_RESULT_TITLE", fields);
