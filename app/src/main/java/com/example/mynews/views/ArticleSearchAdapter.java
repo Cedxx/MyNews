@@ -1,9 +1,12 @@
 package com.example.mynews.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynews.News;
 import com.example.mynews.R;
+import com.example.mynews.ui.main.ArticleSearchFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -54,8 +58,6 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
         }else {
             Picasso.get().load(imgUrl).into(holder.newsImage);
         }
-
-
     }
 
 
@@ -70,6 +72,7 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
 
         ImageView newsImage;
         TextView newsDescription, newsCategory, newsDate;
+        WebView test;
 
         ArticleSearchViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +85,9 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
 
         @Override
         public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+            intent.putExtra(WebViewActivity.WebUrl,"http://wwww.google.fr");
+            view.getContext().startActivities(new Intent[]{intent});
 
         }
     }
