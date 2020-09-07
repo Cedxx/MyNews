@@ -1,5 +1,6 @@
 package com.example.mynews.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 
@@ -18,10 +19,10 @@ public class WebViewActivity extends AppCompatActivity {
 
         setContentView(R.layout.web_view);
 
-        String url=getIntent().getStringExtra(WebUrl);
-        setTitle(url);
+        Intent intent = getIntent();
+        String url = intent.getStringExtra(ArticleSearchAdapter.EXTRA_MESSAGE);
 
         WebView webView = findViewById(R.id.webView);
-        webView.loadUrl(WebUrl);
+        webView.loadUrl(url);
     }
 }

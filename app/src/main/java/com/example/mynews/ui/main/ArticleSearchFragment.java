@@ -3,6 +3,7 @@ package com.example.mynews.ui.main;
 import androidx.lifecycle.Observer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -24,7 +25,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mynews.News;
 import com.example.mynews.R;
+import com.example.mynews.Utils.ItemsClickSupport;
 import com.example.mynews.views.ArticleSearchAdapter;
+import com.example.mynews.views.WebViewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +58,8 @@ public class ArticleSearchFragment extends Fragment {
     private JSONObject articleMedia = new JSONObject();
     private String articleMediaUrl = "";
 
-
+    public static final String EXTRA_MESSAGE = "test";
+    private Context context;
 
 
     @Override
@@ -90,6 +94,7 @@ public class ArticleSearchFragment extends Fragment {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section_name");
+                                String mediaUrlObject = newsObject.getString("web_url");
                                 JSONArray mediaArray = newsObject.getJSONArray("multimedia");
                                 for (int j = 0; j < mediaArray.length() -1; j++) {
                                     JSONObject mediaObject = mediaArray.getJSONObject(0);
@@ -112,7 +117,7 @@ public class ArticleSearchFragment extends Fragment {
                                 }
 
                                 //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMediaUrl);
+                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMediaUrl, mediaUrlObject);
 
                                 //adding the news to newsList
                                 mNewsList.add(news);
@@ -203,6 +208,8 @@ public class ArticleSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Calling the method that configuring click on RecyclerView
+        //this.configureOnClickRecyclerView(container);
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_article_search, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
@@ -215,8 +222,34 @@ public class ArticleSearchFragment extends Fragment {
                 recyclerView.setAdapter(mArticleSearchAdapter);
             }
         });
+        mArticleSearchAdapter.setClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                int position = recyclerView.indexOfChild(v);
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, "www.google.fr");
+                context.startActivities(new Intent[position]);
+            }
+        });
 
         return root;
+
+
     }
 
+    //Configure item click on RecyclerView
+    private void configureOnClickRecyclerView(View view){
+        final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        ItemsClickSupport.addTo(recyclerView, R.layout.fragment_article_search).setOnItemClickListener(new ItemsClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                position = recyclerView.indexOfChild(v);
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, "www.google.fr");
+                context.startActivities(new Intent[position]);
+            }
+        });
+    }
 }

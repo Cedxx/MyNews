@@ -45,4 +45,8 @@ public class ArticleSearchViewModel extends ViewModel {
     public LiveData<List<News>> getList() {
         return mList;
     }
+
+    public void onClickListerner() {
+        
+    }
 }

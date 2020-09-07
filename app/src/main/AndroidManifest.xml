@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".SearchActivity" />
         <activity android:name=".NotificationsActivity" />
+        <activity android:name=".views.WebViewActivity"/>
         <activity
             android:name=".MainActivity">
             <intent-filter>

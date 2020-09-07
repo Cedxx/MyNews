@@ -63,6 +63,7 @@ public class MostPopularFragment extends Fragment {
                                 //getting the json object of the particular index inside the array
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
+                                String mediaUrlObject = newsObject.getString("url");
                                 JSONArray mediaArray = newsObject.getJSONArray("media");
                                 JSONObject mediaIndex;
                                 if(mediaArray.length() > 0){
@@ -71,7 +72,7 @@ public class MostPopularFragment extends Fragment {
                                     mediaIndex = mediaData.getJSONObject(0);
 
                                     //creating a news object and giving them the values from json object
-                                    News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"));
+                                    News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
 
                                     //adding the news to newsList
                                     mNewsList.add(news);

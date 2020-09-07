@@ -1,6 +1,7 @@
 package com.example.mynews.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,9 @@ public class TopStoryAdapter extends RecyclerView.Adapter<TopStoryAdapter.TopSto
 
         @Override
         public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+            intent.putExtra(WebViewActivity.WebUrl,"http://wwww.google.fr");
+            view.getContext().startActivities(new Intent[]{intent});
 
         }
     }

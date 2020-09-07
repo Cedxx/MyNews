@@ -2,6 +2,8 @@ package com.example.mynews.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,12 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
     //Member variable
     private List<News> mNewsList;
     private LayoutInflater mInflater;
+    private View.OnClickListener mClickListener;
+
+
+
+    public static final String EXTRA_MESSAGE = "test";
+
 
 
     // data is passed into the constructor
@@ -39,6 +47,13 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
     @Override
     public ArticleSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.row_news, parent, false);
+        RecyclerView.ViewHolder holder = new ArticleSearchViewHolder(view);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mClickListener.onClick(view);
+            }
+        });
         return new ArticleSearchViewHolder(view);
     }
 
@@ -60,6 +75,11 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
         }
     }
 
+    public News getNewsListPosition(int position) {
+        return this.mNewsList.get(position);
+    }
+
+
 
     // Set the limit size of the list to match the JSON queried item
     @Override
@@ -73,9 +93,11 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
         ImageView newsImage;
         TextView newsDescription, newsCategory, newsDate;
         WebView test;
+        private Context context;
 
         ArticleSearchViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             newsDescription = itemView.findViewById(R.id.newsDescription);
             newsCategory = itemView.findViewById(R.id.newsCategory);
             newsDate = itemView.findViewById(R.id.newsDate);
@@ -85,10 +107,13 @@ public class ArticleSearchAdapter extends RecyclerView.Adapter<ArticleSearchAdap
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), WebViewActivity.class);
-            intent.putExtra(WebViewActivity.WebUrl,"http://wwww.google.fr");
-            view.getContext().startActivities(new Intent[]{intent});
+//            Intent intent = new Intent(context, WebViewActivity.class);
+//            intent.putExtra(EXTRA_MESSAGE,"http://wwww.google.fr");
+//            context.startActivities(new Intent[]{intent});
 
         }
+    }
+    public void setClickListener(View.OnClickListener callback) {
+        mClickListener = callback;
     }
 }
