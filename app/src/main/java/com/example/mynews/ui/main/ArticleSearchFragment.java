@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class ArticleSearchFragment extends Fragment {
 
     public static final String EXTRA_MESSAGE = "test";
     private Context context;
+
+    private RecyclerView mRecyclerView;
 
 
     @Override
@@ -209,7 +212,7 @@ public class ArticleSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Calling the method that configuring click on RecyclerView
-        //this.configureOnClickRecyclerView(container);
+        this.configureOnClickRecyclerView(container);
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_article_search, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
@@ -222,17 +225,16 @@ public class ArticleSearchFragment extends Fragment {
                 recyclerView.setAdapter(mArticleSearchAdapter);
             }
         });
-        mArticleSearchAdapter.setClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                int position = recyclerView.indexOfChild(v);
-                Intent intent = new Intent(context, WebViewActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, "www.google.fr");
-                context.startActivities(new Intent[position]);
-            }
-        });
+//        mArticleSearchAdapter.setClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                int position = recyclerView.indexOfChild(v);
+//                Intent intent = new Intent(context, WebViewActivity.class);
+//                intent.putExtra(articleMediaUrl,"www.google.fr");
+//                context.startActivities(new Intent[position]);
+//            }
+//        });
 
         return root;
 
@@ -245,11 +247,21 @@ public class ArticleSearchFragment extends Fragment {
         ItemsClickSupport.addTo(recyclerView, R.layout.fragment_article_search).setOnItemClickListener(new ItemsClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                position = recyclerView.indexOfChild(v);
-                Intent intent = new Intent(context, WebViewActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, "www.google.fr");
-                context.startActivities(new Intent[position]);
+                Log.d("TAG", "Position : "+position);
+                News list = mArticleSearchAdapter.getNewsListPosition(position);
+                Toast.makeText(getContext(), "You cliked on position :"+list.getArticleUrl(),Toast.LENGTH_SHORT).show();
+//                position = recyclerView.indexOfChild(v);
+//                Intent intent = new Intent(context, WebViewActivity.class);
+//                intent.putExtra(EXTRA_MESSAGE, "www.google.fr");
+//                context.startActivities(new Intent[position]);
             }
         });
+    }
+
+    private void callWebViewActivity(String url, int position){
+        //position = recyclerView.indexOfChild(v);
+        Intent intent = new Intent(getActivity(), WebViewActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, "www.google.fr");
+        context.startActivities(new Intent[position]);
     }
 }
