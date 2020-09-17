@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Models;
 
 public class News {
     private String title, date, section, imageUrl, articleUrl;

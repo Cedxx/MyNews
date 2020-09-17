@@ -1,27 +1,17 @@
-package com.example.mynews.ui.main;
+package com.example.mynews.views;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynews.News;
-import com.example.mynews.R;
-import com.example.mynews.views.ArticleSearchAdapter;
+import com.example.mynews.Controllers.Fragments.ArticleSearchFragment;
+import com.example.mynews.Controllers.Fragments.MostPopularFragment;
+import com.example.mynews.Controllers.Fragments.TopStoryFragment;
 
 import java.util.ArrayList;
 import java.util.List;

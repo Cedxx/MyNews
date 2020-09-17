@@ -1,6 +1,7 @@
-package com.example.mynews.ui.main;
+package com.example.mynews.Controllers.Fragments;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,9 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mynews.News;
+import com.example.mynews.Models.News;
 import com.example.mynews.R;
-import com.example.mynews.views.MostPopularAdapter;
+import com.example.mynews.views.TopStoryViewModel;
 import com.example.mynews.views.TopStoryAdapter;
 
 import org.json.JSONArray;
@@ -30,19 +31,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MostPopularFragment extends Fragment {
+
+public class TopStoryFragment extends Fragment {
     //the URL having the json data
-    private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
+    private static final String JSON_URL = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
-    private MostPopularAdapter mMostPopularAdapter;
-    private MostPopularViewModel mMostPopularViewModel;
+    private TopStoryAdapter mTopStoryAdapter;
+    private TopStoryViewModel mTopStoryViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
-        mMostPopularViewModel = new MostPopularViewModel();
+        mTopStoryViewModel = new TopStoryViewModel();
 
         //Creating the string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
@@ -64,23 +66,18 @@ public class MostPopularFragment extends Fragment {
                                 JSONObject newsObject = newsArray.getJSONObject(i);
                                 String sectionObject = newsObject.getString("section");
                                 String mediaUrlObject = newsObject.getString("url");
-                                JSONArray mediaArray = newsObject.getJSONArray("media");
-                                JSONObject mediaIndex;
-                                if(mediaArray.length() > 0){
-                                    JSONObject mediaObject = mediaArray.getJSONObject(0);
-                                    JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
-                                    mediaIndex = mediaData.getJSONObject(0);
+                                JSONArray mediaArray = newsObject.getJSONArray("multimedia");
+                                JSONObject mediaObject = mediaArray.getJSONObject(0);
 
-                                    //creating a news object and giving them the values from json object
-                                    News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
 
-                                    //adding the news to newsList
-                                    mNewsList.add(news);
-                                }
 
+                                //creating a news object and giving them the values from json object
+                                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaObject.getString("url"), mediaUrlObject);
+
+                                //adding the news to newsList
+                                mNewsList.add(news);
                             }
-
-                            mMostPopularViewModel.setNews(mNewsList);
+                            mTopStoryViewModel.setNews(mNewsList);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -108,15 +105,15 @@ public class MostPopularFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_most_popular, container, false);
-        final RecyclerView recyclerView = root.findViewById(R.id.most_popular_recycler_view);
+        View root = inflater.inflate(R.layout.fragment_top_story, container, false);
+        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         //LiveData Observer
-        mMostPopularViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
+        mTopStoryViewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
             public void onChanged(List<News> news) {
                 recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-                mMostPopularAdapter = new MostPopularAdapter(getContext(), mNewsList);
-                recyclerView.setAdapter(mMostPopularAdapter);
+                mTopStoryAdapter = new TopStoryAdapter(getContext(), mNewsList);
+                recyclerView.setAdapter(mTopStoryAdapter);
             }
         });
 

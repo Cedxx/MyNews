@@ -1,68 +1,92 @@
-package com.example.mynews;
+package com.example.mynews.Controllers.Activities;
+
 
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.mynews.Controllers.Fragments.DatePickerFragment;
+import com.example.mynews.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class NotificationsActivity extends AppCompatActivity implements DatePickerFragment.OnDateSetListener{
+public class SearchActivity extends AppCompatActivity implements DatePickerFragment.OnDateSetListener {
 
     private EditText mBeginDateText;
     private EditText mEndDateText;
     private Locale locale;
     private EditText mSearchView;
-    private Button mSearchButton;
-
-    private static final String NOTIFICATION_ID_STRING = "1";
-    private static final int NOTIFICATION_ID = 1;
-
+    private ArrayList<String> categoriesFields;
     private DialogFragment datePicker;
+
+    //CheckBox Variable
+    private CheckBox mCheckBoxArts;
+    private CheckBox mCheckBoxBusiness;
+    private CheckBox mCheckBoxEntrepreneurs;
+    private CheckBox mCheckBoxPolitics;
+    private CheckBox mCheckBoxSports;
+    private CheckBox mCheckBoxTravel;
 
     // SharedPreferences variable
     public static final String MyPref = "MyPrefsFile";
     protected SharedPreferences.Editor mEditor;
     protected SharedPreferences mSharedPreferences;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notification_activity);
+
+        //Retrieving sharedPreferences data for the CheckBox
+        mSharedPreferences = getSharedPreferences(MyPref, MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
+
+        // Linking the Search Main element to the view
+        setContentView(R.layout.search_main);
+
+        // Creating the list in a array for the selected categories
+        categoriesFields = new ArrayList<>();
+
+        //initializing the CHeckBox view
+        mCheckBoxArts = findViewById(R.id.checkBoxArt);
+        mCheckBoxBusiness = findViewById(R.id.checkBoxBusiness);
+        mCheckBoxEntrepreneurs = findViewById(R.id.checkBoxEntrepreneur);
+        mCheckBoxPolitics = findViewById(R.id.checkBoxPolitic);
+        mCheckBoxSports = findViewById(R.id.checkBoxSport);
+        mCheckBoxTravel = findViewById(R.id.checkBoxTravel);
+
         locale = getResources().getConfiguration().locale;
         datePicker = new DatePickerFragment();
-
-        //start notification channel
-        createNotificationChannel();
-
 
         //Linking the Begin Date text area to the view
         mBeginDateText = findViewById(R.id.pickBeginDate);
         //disable the keyboard input
         mBeginDateText.setInputType(InputType.TYPE_NULL);
+
+        //Retrieve the begin date from the sharedPrefs
+        mBeginDateText.setText(mSharedPreferences.getString("beginDate","Begin Date"));
         //Set the OnClickListener
         mBeginDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -79,6 +103,8 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         mEndDateText = findViewById(R.id.pickEndDate);
         //disable the keyboard input
         mEndDateText.setInputType(InputType.TYPE_NULL);
+        //Retrieve the end date from the sharedPrefs
+        mEndDateText.setText(mSharedPreferences.getString("endDate", "End Date"));
         //Set the OnClickListener
         mEndDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -92,11 +118,8 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
             }
         });
 
-        //Retrieving sharedPreferences data for the CheckBox
-        mSharedPreferences = getSharedPreferences(MyPref, MODE_PRIVATE);
-        mEditor = mSharedPreferences.edit();
-        //start the ifCheckBoxIsCheck method
-        ifCheckBoxIsCheck();
+        //Set the correct value in the sharedPreferences for the CheckBox
+        setSharedPreferencesForCheckBox();
 
 
         //Search Query will be saved and pulled from here when the user type a search request.
@@ -118,16 +141,17 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
             }
         });
 
+
     }
 
-    // This method will retrieve information from the SharedPreferences if the checkBox are set to True or False and set the proper value
-    private void ifCheckBoxIsCheck(){
+    public void setSharedPreferencesForCheckBox(){
         boolean artsIsChecked = mSharedPreferences.getBoolean("arts", false);
         if(!artsIsChecked){
             mEditor.putBoolean("arts", false);
         }else {
             CheckBox artsCheckBox = findViewById(R.id.checkBoxArt);
             artsCheckBox.setChecked(true);
+            categoriesFields.add("arts");
         }
 
         boolean politicsIsChecked = mSharedPreferences.getBoolean("politics", false);
@@ -136,6 +160,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         }else{
             CheckBox politicsCheckBox = findViewById(R.id.checkBoxPolitic);
             politicsCheckBox.setChecked(true);
+            categoriesFields.add("politics");
         }
 
         boolean businessIsChecked = mSharedPreferences.getBoolean("business", false);
@@ -144,6 +169,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         }else{
             CheckBox businessCheckBox = findViewById(R.id.checkBoxBusiness);
             businessCheckBox.setChecked(true);
+            categoriesFields.add("business");
         }
 
         boolean sportsIsChecked = mSharedPreferences.getBoolean("sports", false);
@@ -152,6 +178,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         }else{
             CheckBox sportsCheckBox = findViewById(R.id.checkBoxSport);
             sportsCheckBox.setChecked(true);
+            categoriesFields.add("sports");
         }
 
         boolean entrepreneursIsChecked = mSharedPreferences.getBoolean("entrepreneurs", false);
@@ -160,6 +187,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         }else{
             CheckBox entrepreneursCheckBox = findViewById(R.id.checkBoxEntrepreneur);
             entrepreneursCheckBox.setChecked(true);
+            categoriesFields.add("entrepreneurs");
         }
 
         boolean travelsIsChecked = mSharedPreferences.getBoolean("travels", false);
@@ -168,43 +196,10 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         }else{
             CheckBox travelsCheckBox = findViewById(R.id.checkBoxTravel);
             travelsCheckBox.setChecked(true);
+            categoriesFields.add("travels");
         }
         mEditor.commit();
     }
-
-
-    //Notification builder
-    private void addNotification(){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_ID_STRING)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("test")
-                .setContentText("this a test text")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        //Notify the app
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
-
-    }
-
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(NOTIFICATION_ID_STRING, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
 
     //Method that will force to close the keyboard once called
     public void hideKeyboard(View view) {
@@ -213,7 +208,7 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    // this method will handle the date variable from the user
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         // display the date chosen by the user
@@ -228,17 +223,16 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
                 case R.id.pickBeginDate:
                     calendar.set(year, month, dayOfMonth);
                     mBeginDateText.setText(sdf.format(calendar.getTime()));
-                    mEditor.putString("beginDate", String.valueOf(sdf));
+                    mEditor.putString("beginDate", sdf.format(calendar.getTime()));
                     break;
                 case R.id.pickEndDate:
                     calendar.set(year, month, dayOfMonth);
                     mEndDateText.setText(dateFormat.format(calendar.getTime()));
-                    mEditor.putString("endDate", String.valueOf(sdf));
+                    mEditor.putString("endDate", sdf.format(calendar.getTime()));
             }mEditor.commit();
         }
     }
 
-    // this method will save the current state of the checkBox for each value in the SharedPreference
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -246,57 +240,105 @@ public class NotificationsActivity extends AppCompatActivity implements DatePick
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.checkBoxArt:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("arts", true);
-                else
+                    categoriesFields.add("arts");
+                }
+            else {
                     mEditor.putBoolean("arts", false);
+                    categoriesFields.remove("arts");
+                }
+
                 break;
             case R.id.checkBoxPolitic:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("politics", true);
-                else
+                   categoriesFields.add("politics");
+                }
+            else {
                     mEditor.putBoolean("politics", false);
+                    categoriesFields.remove("politics");
+                }
                 break;
             case R.id.checkBoxBusiness:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("business", true);
-                else
+                    categoriesFields.add("business");
+                }
+                else {
                     mEditor.putBoolean("business", false);
+                    categoriesFields.remove("business");
+                }
                 break;
             case R.id.checkBoxSport:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("sports", true);
-                else
+                    categoriesFields.add("sports");
+                }
+                else {
                     mEditor.putBoolean("sports", false);
+                    categoriesFields.remove("sports");
+                }
                 break;
             case R.id.checkBoxEntrepreneur:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("entrepreneurs", true);
-                else
+                     categoriesFields.add("entrepreneurs");
+                }
+                else {
                     mEditor.putBoolean("entrepreneurs", false);
+                    categoriesFields.remove("entrepreneurs");
+                }
                 break;
             case R.id.checkBoxTravel:
-                if (checked)
+                if (checked) {
                     mEditor.putBoolean("travels", true);
-                else
+                    categoriesFields.add("travels");
+                }
+                else {
                     mEditor.putBoolean("travels", false);
+                    categoriesFields.remove("travels");
+                }
                 break;
         }mEditor.commit();
     }
 
+    //Method that will check if at least 1 checkBox is checked and if the Search Query is not empty
+    private boolean validateCriteria(){
+        final Context context = getApplicationContext();
+        final CharSequence text = "Required data : Search Query and at least one category";
+        final int duration = Toast.LENGTH_SHORT;
+
+        if (mSearchView.getText().toString().equals("") || (!mCheckBoxArts.isChecked() &&
+                !mCheckBoxBusiness.isChecked() &&
+                !mCheckBoxEntrepreneurs.isChecked() &&
+                !mCheckBoxPolitics.isChecked() &&
+                !mCheckBoxSports.isChecked() &&
+                !mCheckBoxTravel.isChecked())
+        ){
+            //when false, return a toast message to let the user know that one field is missing
+            Toast.makeText(context, text,duration).show();
+            return false;
+        }else return true;
+
+    }
+
 
     //On click action when pressing the Search button.
-    // if the searchQuery is empty, display a error message
-    // if all the data are properly set, start the notification process
-    public void onTest(View view) {
+      @RequiresApi(api = Build.VERSION_CODES.O)
+      public void onSearchButtonClick(View view) {
         final Context context = getApplicationContext();
-        final CharSequence text = "Search Query can't be empty!";
+        final CharSequence text = "Required data : Search Query and at least one category";
         final int duration = Toast.LENGTH_SHORT;
-        if( mSearchView.getText().toString().length() == 0 ){
-            Toast.makeText(context, text,duration).show();
-            getCurrentFocus();
+        if(!validateCriteria()){
+            //Toast.makeText(context, text,duration).show();
+        getCurrentFocus();
         }else{
-            addNotification();
+            String fields = String.join("/", categoriesFields);
+              mEditor.putString("categoriesQuery", fields).commit();
+              Intent resultIntent = new Intent();
+              resultIntent.putExtra("TAB_RESULT_TITLE", fields);
+              setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }
     }

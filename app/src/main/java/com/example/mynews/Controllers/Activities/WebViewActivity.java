@@ -1,4 +1,4 @@
-package com.example.mynews.views;
+package com.example.mynews.Controllers.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mynews.R;
+import com.example.mynews.views.ArticleSearchAdapter;
 
 public class WebViewActivity extends AppCompatActivity {
 

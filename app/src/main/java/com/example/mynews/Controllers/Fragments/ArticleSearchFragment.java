@@ -1,4 +1,4 @@
-package com.example.mynews.ui.main;
+package com.example.mynews.Controllers.Fragments;
 
 import androidx.lifecycle.Observer;
 
@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,11 +23,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mynews.News;
+import com.example.mynews.Models.News;
 import com.example.mynews.R;
 import com.example.mynews.Utils.ItemsClickSupport;
+import com.example.mynews.views.ArticleSearchViewModel;
 import com.example.mynews.views.ArticleSearchAdapter;
-import com.example.mynews.views.WebViewActivity;
+import com.example.mynews.Controllers.Activities.WebViewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,6 +1,4 @@
-package com.example.mynews.ui.main;
-
-import android.content.SharedPreferences;
+package com.example.mynews.views;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
@@ -8,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.example.mynews.News;
+import com.example.mynews.Models.News;
 
 import java.util.List;
 

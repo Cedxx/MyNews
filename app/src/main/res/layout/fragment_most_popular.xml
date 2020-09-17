@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorTab"
-    tools:context=".ui.main.MostPopularFragment">
+    tools:context=".Controllers.Fragments.MostPopularFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/most_popular_recycler_view"
