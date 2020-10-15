@@ -1,0 +1,1221 @@
+{
+  "status": "OK",
+  "copyright": "Copyright (c) 2020 The New York Times Company.  All Rights Reserved.",
+  "num_results": 20,
+  "results": [
+    {
+      "uri": "nyt://article/8049bb4d-b28b-5cb5-8e17-c0c607d45e7a",
+      "url": "https://www.nytimes.com/2020/10/10/at-home/exercises-for-better-sleep.html",
+      "id": 100000007380837,
+      "asset_id": 100000007380837,
+      "source": "New York Times",
+      "published_date": "2020-10-10",
+      "updated": "2020-10-14 17:44:24",
+      "section": "At Home",
+      "subsection": "",
+      "nytdsection": "at home",
+      "adx_keywords": "Quarantine (Life and Culture);Back (Human Body Part);Legs;Knees;Anxiety and Stress;Yoga;Sleep;Neck;Exercise;Content Type: Service",
+      "column": null,
+      "byline": "By Kelly DiNardo",
+      "type": "Article",
+      "title": "Rest Better With Light Exercises",
+      "abstract": "Stretching and meditative movement like yoga before bed can improve the quality of your sleep and the amount you sleep. Here is a short and calming routine of 11 stretches and exercises.",
+      "des_facet": [
+        "Quarantine (Life and Culture)",
+        "Back (Human Body Part)",
+        "Legs",
+        "Knees",
+        "Anxiety and Stress",
+        "Yoga",
+        "Sleep",
+        "Neck",
+        "Exercise",
+        "Content Type: Service"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Brown Bird Design",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/multimedia/11ah-catcow/11ah-catcow-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/multimedia/11ah-catcow/11ah-catcow-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/multimedia/11ah-catcow/11ah-catcow-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/63683650-e68d-5d2b-ac12-da3e0ec14f0e",
+      "url": "https://www.nytimes.com/2020/10/06/opinion/joe-biden-2020-nytimes-endorsement.html",
+      "id": 100000007372211,
+      "asset_id": 100000007372211,
+      "source": "New York Times",
+      "published_date": "2020-10-06",
+      "updated": "2020-10-08 17:40:38",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Presidential Election of 2020;Endorsements;Biden, Joseph R Jr;New York Times",
+      "column": null,
+      "byline": "By The Editorial Board",
+      "type": "Article",
+      "title": "Elect Joe Biden, America",
+      "abstract": "The former vice president is the leader our nation needs now.",
+      "des_facet": [
+        "Presidential Election of 2020",
+        "Endorsements"
+      ],
+      "org_facet": [
+        "New York Times"
+      ],
+      "per_facet": [
+        "Biden, Joseph R Jr"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Damon Winter/The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/opinion/07end_editorial/07end_editorial-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/opinion/07end_editorial/07end_editorial-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/opinion/07end_editorial/07end_editorial-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/da3fc7b9-0b94-5954-9e94-bf7351c537d5",
+      "url": "https://www.nytimes.com/2020/10/07/climate/new-england-trees-forests.html",
+      "id": 100000007367266,
+      "asset_id": 100000007367266,
+      "source": "New York Times",
+      "published_date": "2020-10-07",
+      "updated": "2020-10-08 09:04:49",
+      "section": "Climate",
+      "subsection": "",
+      "nytdsection": "climate",
+      "adx_keywords": "Global Warming;Trees and Shrubs;Invasive Species;Forests and Forestry;Drought;Land Use Policies;Careers and Professions;Berkshires (Mass);New England States (US);Northeastern States (US);Petersham (Mass);Massachusetts",
+      "column": null,
+      "byline": "By Marguerite Holloway and George Etheredge",
+      "type": "Article",
+      "title": "New England’s Forests Are Sick. They Need More Tree Doctors.",
+      "abstract": "Climate change is taking a toll on woodlands in the Northeast.",
+      "des_facet": [
+        "Global Warming",
+        "Trees and Shrubs",
+        "Invasive Species",
+        "Forests and Forestry",
+        "Drought",
+        "Land Use Policies",
+        "Careers and Professions"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [
+        "Berkshires (Mass)",
+        "New England States (US)",
+        "Northeastern States (US)",
+        "Petersham (Mass)",
+        "Massachusetts"
+      ],
+      "media": [],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://interactive/cba553d7-2ebc-597f-bd74-de3f617296e0",
+      "url": "https://www.nytimes.com/interactive/2014/upshot/dialect-quiz-map.html",
+      "id": 100000002615736,
+      "asset_id": 100000002615736,
+      "source": "New York Times",
+      "published_date": "2013-12-21",
+      "updated": "2020-10-06 18:12:03",
+      "section": "The Upshot",
+      "subsection": "",
+      "nytdsection": "the upshot",
+      "adx_keywords": "Language and Languages;English Language",
+      "column": null,
+      "byline": "By Josh Katz and Wilson Andrews",
+      "type": "Interactive",
+      "title": "How Y’all, Youse and You Guys Talk",
+      "abstract": "What does the way you speak say about where you’re from? Answer all the questions below to see your personal dialect map.",
+      "des_facet": [
+        "Language and Languages",
+        "English Language"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "",
+          "caption": "",
+          "copyright": "",
+          "approved_for_syndication": 0,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2016/11/24/us/map-dialect/map-dialect-thumbStandard.png",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2016/11/24/us/map-dialect/map-dialect-mediumThreeByTwo210.png",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2016/11/24/us/map-dialect/map-dialect-mediumThreeByTwo440.png",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/08ed7b07-8fa8-5609-8c2e-4191ac4ac4cc",
+      "url": "https://www.nytimes.com/2020/10/09/opinion/nyt-1619-project-criticisms.html",
+      "id": 100000007380489,
+      "asset_id": 100000007380489,
+      "source": "New York Times",
+      "published_date": "2020-10-09",
+      "updated": "2020-10-10 19:08:39",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Black People;Race and Ethnicity;Declaration of Independence (US);Slavery (Historical);News and News Media;Hannah-Jones,  Nikole;Silverstein, Jake (1975- );New York Times",
+      "column": null,
+      "byline": "By Bret Stephens",
+      "type": "Article",
+      "title": "The 1619 Chronicles",
+      "abstract": "Journalism does better when it writes the first rough draft of history, not the last word on it.",
+      "des_facet": [
+        "Black People",
+        "Race and Ethnicity",
+        "Declaration of Independence (US)",
+        "Slavery (Historical)",
+        "News and News Media"
+      ],
+      "org_facet": [
+        "New York Times"
+      ],
+      "per_facet": [
+        "Hannah-Jones,  Nikole",
+        "Silverstein, Jake (1975- )"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": " ",
+          "copyright": "The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/opinion/sunday/09stephens/09stephens-thumbStandard-v2.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/opinion/sunday/09stephens/09stephens-mediumThreeByTwo210-v2.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/opinion/sunday/09stephens/09stephens-mediumThreeByTwo440-v2.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/1348bc9d-0b3f-5467-af3c-b26150e6ef20",
+      "url": "https://www.nytimes.com/2020/10/08/opinion/kamala-harris-2020-election.html",
+      "id": 100000007385111,
+      "asset_id": 100000007385111,
+      "source": "New York Times",
+      "published_date": "2020-10-08",
+      "updated": "2020-10-09 19:31:14",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Debates (Political);Presidential Election of 2020;United States Politics and Government;Harris, Kamala D;Biden, Joseph R Jr;Democratic Party",
+      "column": null,
+      "byline": "By David Brooks",
+      "type": "Article",
+      "title": "Kamala Harris Knows How to Win Elections",
+      "abstract": "Make a sharp shift to the center.",
+      "des_facet": [
+        "Debates (Political)",
+        "Presidential Election of 2020",
+        "United States Politics and Government"
+      ],
+      "org_facet": [
+        "Democratic Party"
+      ],
+      "per_facet": [
+        "Harris, Kamala D",
+        "Biden, Joseph R Jr"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Illustration by The New York Times; photograph by Ruth Fremson/The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/08/opinion/08brooks/08brooks-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/08/opinion/08brooks/08brooks-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/08/opinion/08brooks/08brooks-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/bd1839f4-4b9a-5b26-945a-709a1e607e17",
+      "url": "https://www.nytimes.com/2020/10/08/us/people-of-praise-amy-coney-barrett.html",
+      "id": 100000007372446,
+      "asset_id": 100000007372446,
+      "source": "New York Times",
+      "published_date": "2020-10-08",
+      "updated": "2020-10-14 10:38:18",
+      "section": "U.S.",
+      "subsection": "",
+      "nytdsection": "u.s.",
+      "adx_keywords": "Christians and Christianity;Appointments and Executive Changes;Barrett, Amy Coney;People of Praise;Roman Catholic Church;Supreme Court (US);South Bend (Ind)",
+      "column": null,
+      "byline": "By Ruth Graham and Sharon LaFraniere",
+      "type": "Article",
+      "title": "Inside the People of Praise, the Tight-Knit Faith Community of Amy Coney Barrett",
+      "abstract": "Even for a conservative religious community, the People of Praise is notable in how deeply embedded members are in one another’s lives.",
+      "des_facet": [
+        "Christians and Christianity",
+        "Appointments and Executive Changes"
+      ],
+      "org_facet": [
+        "People of Praise",
+        "Roman Catholic Church",
+        "Supreme Court (US)"
+      ],
+      "per_facet": [
+        "Barrett, Amy Coney"
+      ],
+      "geo_facet": [
+        "South Bend (Ind)"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Judge Amy Coney Barrett, who has described herself as a faithful Catholic, does not appear to have ever spoken publicly about the religious community she has been a part of nearly her entire life.",
+          "copyright": "Anna Moneymaker for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/us/00peopleofpraise-01alt/00peopleofpraise-01alt-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/us/00peopleofpraise-01alt/00peopleofpraise-01alt-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/us/00peopleofpraise-01alt/00peopleofpraise-01alt-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/9d42ef5f-d6bc-5d12-87bf-2008aedb045e",
+      "url": "https://www.nytimes.com/2020/10/09/opinion/mike-pence-debate.html",
+      "id": 100000007386175,
+      "asset_id": 100000007386175,
+      "source": "New York Times",
+      "published_date": "2020-10-09",
+      "updated": "2020-10-10 16:08:56",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "United States Politics and Government;Vice Presidents and Vice Presidency (US);Debates (Political);Presidential Election of 2020;Conservatism (US Politics);Coronavirus (2019-nCoV);Pence, Mike;Trump, Donald J",
+      "column": null,
+      "byline": "By Timothy Egan",
+      "type": "Article",
+      "title": "What Makes Mike Pence’s Complicity So Chilling",
+      "abstract": "The vice president will be remembered as the great enabler.",
+      "des_facet": [
+        "United States Politics and Government",
+        "Vice Presidents and Vice Presidency (US)",
+        "Debates (Political)",
+        "Presidential Election of 2020",
+        "Conservatism (US Politics)",
+        "Coronavirus (2019-nCoV)"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "Pence, Mike",
+        "Trump, Donald J"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Win Mcnamee/Getty Images",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/opinion/09Egan/09Egan-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/opinion/09Egan/09Egan-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/opinion/09Egan/09Egan-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/0fc03635-e8e1-5d78-8bcc-e2056e90c4e4",
+      "url": "https://www.nytimes.com/2020/10/07/nyregion/orthodox-jews-nyc-coronavirus.html",
+      "id": 100000007382382,
+      "asset_id": 100000007382382,
+      "source": "New York Times",
+      "published_date": "2020-10-07",
+      "updated": "2020-10-08 14:44:08",
+      "section": "New York",
+      "subsection": "",
+      "nytdsection": "new york",
+      "adx_keywords": "Coronavirus (2019-nCoV);Jews and Judaism;Quarantine (Life and Culture);Places of Worship;Demonstrations, Protests and Riots;Cuomo, Andrew M;Yeger, Kalman;Police Department (NYC);Borough Park (Brooklyn, NY);Brooklyn (NYC)",
+      "column": null,
+      "byline": "By Liam Stack",
+      "type": "Article",
+      "title": "Backlash Grows in Orthodox Jewish Areas Over Virus Crackdown by Cuomo",
+      "abstract": "Rules that would have a pronounced impact on synagogues were met with protests, fires and a street attack in a part of Brooklyn seeing an uptick in cases.",
+      "des_facet": [
+        "Coronavirus (2019-nCoV)",
+        "Jews and Judaism",
+        "Quarantine (Life and Culture)",
+        "Places of Worship",
+        "Demonstrations, Protests and Riots"
+      ],
+      "org_facet": [
+        "Police Department (NYC)"
+      ],
+      "per_facet": [
+        "Cuomo, Andrew M",
+        "Yeger, Kalman"
+      ],
+      "geo_facet": [
+        "Borough Park (Brooklyn, NY)",
+        "Brooklyn (NYC)"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Demonstrators set fires in Borough Park, Brooklyn, on Tuesday night to protest Gov. Andrew M. Cuomo’s new shutdown rules.",
+          "copyright": "BoroPark24",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/nyregion/07nyvirus-backlash02/07nyvirus-backlash02-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/nyregion/07nyvirus-backlash02/07nyvirus-backlash02-mediumThreeByTwo210-v2.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/nyregion/07nyvirus-backlash02/07nyvirus-backlash02-mediumThreeByTwo440-v2.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/68de741c-e73f-5f3a-848b-2be36d6a85c8",
+      "url": "https://www.nytimes.com/2020/10/07/health/new-england-journal-trump.html",
+      "id": 100000007383016,
+      "asset_id": 100000007383016,
+      "source": "New York Times",
+      "published_date": "2020-10-07",
+      "updated": "2020-10-12 08:50:37",
+      "section": "Health",
+      "subsection": "",
+      "nytdsection": "health",
+      "adx_keywords": "Coronavirus (2019-nCoV);Endorsements;Presidential Election of 2020;Rumors and Misinformation;Academic and Scientific Journals;Ethics and Official Misconduct;Deaths (Fatalities);your-feed-science;United States Politics and Government;Biden, Joseph R Jr;Trump, Donald J;New England Journal of Medicine;Scientific American;United States",
+      "column": null,
+      "byline": "By Gina Kolata",
+      "type": "Article",
+      "title": "In a First, New England Journal of Medicine Joins Never-Trumpers",
+      "abstract": "Editors at the world’s leading medical journal said the Trump administration “took a crisis and turned it into a tragedy.”",
+      "des_facet": [
+        "Coronavirus (2019-nCoV)",
+        "Endorsements",
+        "Presidential Election of 2020",
+        "Rumors and Misinformation",
+        "Academic and Scientific Journals",
+        "Ethics and Official Misconduct",
+        "Deaths (Fatalities)",
+        "your-feed-science",
+        "United States Politics and Government"
+      ],
+      "org_facet": [
+        "New England Journal of Medicine",
+        "Scientific American"
+      ],
+      "per_facet": [
+        "Biden, Joseph R Jr",
+        "Trump, Donald J"
+      ],
+      "geo_facet": [
+        "United States"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "In a blunt editorial, The New England Journal of Medicine called for replacing “dangerously incompetent” political leadership in the United States — essentially an endorsement of former Vice President Joe Biden.",
+          "copyright": "Hilary Swift for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/science/07VIRUS-NEJ01/07VIRUS-NEJ01-thumbStandard-v2.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/science/07VIRUS-NEJ01/07VIRUS-NEJ01-mediumThreeByTwo210-v3.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/science/07VIRUS-NEJ01/07VIRUS-NEJ01-mediumThreeByTwo440-v3.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/efd88313-6c28-58d8-9608-94af430623ac",
+      "url": "https://www.nytimes.com/2020/10/10/opinion/sunday/trump-election-authoritarianism.html",
+      "id": 100000007387703,
+      "asset_id": 100000007387703,
+      "source": "New York Times",
+      "published_date": "2020-10-10",
+      "updated": "2020-10-12 19:53:05",
+      "section": "Opinion",
+      "subsection": "Sunday Review",
+      "nytdsection": "opinion",
+      "adx_keywords": "Presidential Election of 2020;United States Politics and Government;Liberalism (US Politics);Trump, Donald J",
+      "column": null,
+      "byline": "By Ross Douthat",
+      "type": "Article",
+      "title": "There Will Be No Trump Coup",
+      "abstract": "A final pre-election case for understanding the president as a noisy weakling, not a budding autocrat.",
+      "des_facet": [
+        "Presidential Election of 2020",
+        "United States Politics and Government",
+        "Liberalism (US Politics)"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "Trump, Donald J"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Oliver Contreras for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/opinion/10Douthat/10Douthat-thumbStandard-v2.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/opinion/10Douthat/10Douthat-mediumThreeByTwo210-v2.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/11/opinion/10Douthat/10Douthat-mediumThreeByTwo440-v2.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/c53009c8-968c-5c22-9a74-4fcbc71c9662",
+      "url": "https://www.nytimes.com/2020/10/09/dining/roasted-cauliflower-recipe.html",
+      "id": 100000007385773,
+      "asset_id": 100000007385773,
+      "source": "New York Times",
+      "published_date": "2020-10-09",
+      "updated": "2020-10-14 12:32:46",
+      "section": "Food",
+      "subsection": "",
+      "nytdsection": "food",
+      "adx_keywords": "Cooking and Cookbooks;Cauliflower",
+      "column": null,
+      "byline": "By Melissa Clark",
+      "type": "Article",
+      "title": "You Won’t Want to Share This Roasted Cauliflower",
+      "abstract": "Olives, crispy Parmesan and pancetta bring out the vegetable’s gentler, most irresistible side.",
+      "des_facet": [
+        "Cooking and Cookbooks",
+        "Cauliflower"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Johnny Miller for The New York Times. Food Stylist: Rebecca Jurkevich.",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/14/dining/09appe1/09appe1-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/14/dining/09appe1/merlin_177909345_8319ddd3-ebcf-4159-8fc2-8139999bc9d6-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/14/dining/09appe1/merlin_177909345_8319ddd3-ebcf-4159-8fc2-8139999bc9d6-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/a84628d8-8921-50ff-9130-9e71a9c24cb2",
+      "url": "https://www.nytimes.com/2020/10/11/opinion/banks-climate-change-rockefeller.html",
+      "id": 100000007383740,
+      "asset_id": 100000007383740,
+      "source": "New York Times",
+      "published_date": "2020-10-11",
+      "updated": "2020-10-12 20:12:57",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Banking and Financial Institutions;Greenhouse Gas Emissions;Corporate Social Responsibility;Global Warming;Dimon, James;Rockefeller Family;Rockefeller, David;Rockefeller, John D;JPMorgan Chase & Company;United States",
+      "column": null,
+      "byline": "By Daniel Growald, Peter Gill Case and Valerie Rockefeller",
+      "type": "Article",
+      "title": "Three Rockefellers Say Banks Must Stop Financing Fossil Fuels",
+      "abstract": "JPMorgan Chase and other big banks should use their lending power to force cuts in greenhouse gas emissions.",
+      "des_facet": [
+        "Banking and Financial Institutions",
+        "Greenhouse Gas Emissions",
+        "Corporate Social Responsibility",
+        "Global Warming"
+      ],
+      "org_facet": [
+        "JPMorgan Chase & Company"
+      ],
+      "per_facet": [
+        "Dimon, James",
+        "Rockefeller Family",
+        "Rockefeller, David",
+        "Rockefeller, John D"
+      ],
+      "geo_facet": [
+        "United States"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Oil fields in New Mexico.",
+          "copyright": "Adriana Zehbrauskas for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/13/opinion/13growald/10growald-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/13/opinion/13growald/10growald-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/13/opinion/13growald/10growald-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/a3ed92e8-4613-55e3-9a7a-88dc6c9542dc",
+      "url": "https://www.nytimes.com/2020/10/12/climate/home-sales-florida.html",
+      "id": 100000007378820,
+      "asset_id": 100000007378820,
+      "source": "New York Times",
+      "published_date": "2020-10-12",
+      "updated": "2020-10-13 12:00:11",
+      "section": "Climate",
+      "subsection": "",
+      "nytdsection": "climate",
+      "adx_keywords": "Global Warming;Real Estate and Housing (Residential);Research;Coastal Areas;Florida;Florida Keys;Miami-Dade County (Fla);Bal Harbour (Fla);Hallandale Beach (Fla);Key Biscayne (Fla)",
+      "column": null,
+      "byline": "By Christopher Flavelle",
+      "type": "Article",
+      "title": "Florida Sees Signals of a Climate-Driven Housing Crisis",
+      "abstract": "Home sales in areas most vulnerable to sea-level rise began falling around 2013, researchers found. Now, prices are following a similar downward path.",
+      "des_facet": [
+        "Global Warming",
+        "Real Estate and Housing (Residential)",
+        "Research",
+        "Coastal Areas"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [
+        "Florida",
+        "Florida Keys",
+        "Miami-Dade County (Fla)",
+        "Bal Harbour (Fla)",
+        "Hallandale Beach (Fla)",
+        "Key Biscayne (Fla)"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "In places like Bal Harbour, Fla., climate worries have reduced demand for high-risk coastal real estate, researchers say.",
+          "copyright": "Rose Marie Cromwell for The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/13/science/12CLI-FLORIDA01/12CLI-FLORIDA01-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/13/science/12CLI-FLORIDA01/merlin_178301409_6afa210c-ef5c-4334-9edb-874d3b3fd00f-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/13/science/12CLI-FLORIDA01/merlin_178301409_6afa210c-ef5c-4334-9edb-874d3b3fd00f-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/474faaf2-de31-57b6-99c5-6e291b095ddf",
+      "url": "https://www.nytimes.com/2020/10/12/health/coronavirus-pandemic-vaccine-optimism.html",
+      "id": 100000007350913,
+      "asset_id": 100000007350913,
+      "source": "New York Times",
+      "published_date": "2020-10-12",
+      "updated": "2020-10-13 08:43:43",
+      "section": "Health",
+      "subsection": "",
+      "nytdsection": "health",
+      "adx_keywords": "Clinical Trials;Dexamethasone (Drug);Disease Rates;Coronavirus (2019-nCoV);Vaccination and Immunization;Deaths (Fatalities);Drugs (Pharmaceuticals)",
+      "column": null,
+      "byline": "By Donald G. McNeil Jr.",
+      "type": "Article",
+      "title": "A Dose of Optimism, as the Pandemic Rages On",
+      "abstract": "The months ahead will be difficult. But the medical cavalry is coming, and the rest of us know what we need to do.",
+      "des_facet": [
+        "Clinical Trials",
+        "Dexamethasone (Drug)",
+        "Disease Rates",
+        "Coronavirus (2019-nCoV)",
+        "Vaccination and Immunization",
+        "Deaths (Fatalities)",
+        "Drugs (Pharmaceuticals)"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Emiliano Ponzi",
+          "approved_for_syndication": 0,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/12/science/12SCI-OPTIMISM-promo/12SCI-OPTIMISM-promo-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/12/science/12SCI-OPTIMISM-promo/12SCI-OPTIMISM-promo-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/12/science/12SCI-OPTIMISM-promo/12SCI-OPTIMISM-promo-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/372a0f39-4e58-501b-b650-34edeff1f0e1",
+      "url": "https://www.nytimes.com/2020/10/08/opinion/mike-pence-vp-debate.html",
+      "id": 100000007384266,
+      "asset_id": 100000007384266,
+      "source": "New York Times",
+      "published_date": "2020-10-08",
+      "updated": "2020-10-08 23:14:59",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Presidential Election of 2020;United States Politics and Government;Coronavirus (2019-nCoV);Voter Fraud (Election Fraud);Biden, Joseph R Jr",
+      "column": null,
+      "byline": "By Frank Bruni",
+      "type": "Article",
+      "title": "Mike Pence’s Debate Performance Bugged Me Out",
+      "abstract": "He’s numb to pests large and small.",
+      "des_facet": [
+        "Presidential Election of 2020",
+        "United States Politics and Government",
+        "Coronavirus (2019-nCoV)",
+        "Voter Fraud (Election Fraud)"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "Biden, Joseph R Jr"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Illustration by The New York Times; photo by Damon Winter/The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/08/opinion/08bruni/08bruni-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/08/opinion/08bruni/08bruni-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/08/opinion/08bruni/08bruni-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/e0ec3086-bfda-5b40-82ca-25bec0a9b0ec",
+      "url": "https://www.nytimes.com/2020/10/09/opinion/sunday/america-patriotism.html",
+      "id": 100000007379047,
+      "asset_id": 100000007379047,
+      "source": "New York Times",
+      "published_date": "2020-10-09",
+      "updated": "2020-10-12 12:08:06",
+      "section": "Opinion",
+      "subsection": "Sunday Review",
+      "nytdsection": "opinion",
+      "adx_keywords": "Constitution (US);United States Politics and Government",
+      "column": null,
+      "byline": "By Marilynne Robinson",
+      "type": "Article",
+      "title": "Don’t Give Up on America",
+      "abstract": "This country is not just an idea. It’s a family.",
+      "des_facet": [
+        "Constitution (US)",
+        "United States Politics and Government"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "",
+          "copyright": "Antoine Cossé",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/14/opinion/sunday/14robinson/09robinson-thumbStandard-v5.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/14/opinion/sunday/14robinson/09robinson-mediumThreeByTwo210-v4.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/14/opinion/sunday/14robinson/09robinson-mediumThreeByTwo440-v4.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/f1b1d826-bf59-5fbf-8ae1-6996d1d05d50",
+      "url": "https://www.nytimes.com/2020/10/12/travel/britain-island-wardens.html",
+      "id": 100000007385654,
+      "asset_id": 100000007385654,
+      "source": "New York Times",
+      "published_date": "2020-10-12",
+      "updated": "2020-10-13 21:50:58",
+      "section": "Travel",
+      "subsection": "",
+      "nytdsection": "travel",
+      "adx_keywords": "Travel and Vacations;Islands;Boats and Boating;Birdwatching;Birds;Careers and Professions;Great Britain;Wales;Skomer Island (Wales);Ramsey Island (Wales);Flat Holm Island (Wales);Lundy Island;Bardsey Island;Skokholm Island (Wales)",
+      "column": null,
+      "byline": "By Alex Ingram",
+      "type": "Article",
+      "title": "A Glance at Daily Life Among the Caretakers of Britain’s Small Islands",
+      "abstract": "Stationed off the coast of Britain, island wardens manage the preservation of their small speck of land — while coping with extreme weather and limited access to the mainland.",
+      "des_facet": [
+        "Travel and Vacations",
+        "Islands",
+        "Boats and Boating",
+        "Birdwatching",
+        "Birds",
+        "Careers and Professions"
+      ],
+      "org_facet": [],
+      "per_facet": [],
+      "geo_facet": [
+        "Great Britain",
+        "Wales",
+        "Skomer Island (Wales)",
+        "Ramsey Island (Wales)",
+        "Flat Holm Island (Wales)",
+        "Lundy Island",
+        "Bardsey Island",
+        "Skokholm Island (Wales)"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "The warden’s house on Bardsey Island. In the distance is the island’s lighthouse, built in 1821.",
+          "copyright": "Alex Ingram",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/12/travel/12travel-britain-promo/12travel-britain-top-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/12/travel/12travel-britain-promo/12travel-britain-promo-mediumThreeByTwo210-v2.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/12/travel/12travel-britain-promo/12travel-britain-promo-mediumThreeByTwo440-v2.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/17276acc-419f-5782-8c75-ebcb59c0186b",
+      "url": "https://www.nytimes.com/2020/10/07/opinion/nobel-prize-chemistry-2020-doudna-charpentier.html",
+      "id": 100000007382578,
+      "asset_id": 100000007382578,
+      "source": "New York Times",
+      "published_date": "2020-10-07",
+      "updated": "2020-10-08 15:23:49",
+      "section": "Opinion",
+      "subsection": "",
+      "nytdsection": "opinion",
+      "adx_keywords": "Crispr (DNA);Nobel Prizes;Chemistry;Women and Girls;Charpentier, Emmanuelle M (1968- );Doudna, Jennifer A",
+      "column": null,
+      "byline": "By Walter Isaacson",
+      "type": "Article",
+      "title": "This Year’s Nobel Prize in Chemistry Honors a Revolution",
+      "abstract": "With Crispr, two scientists turned a curiosity of nature into an invention that will transform the human race.",
+      "des_facet": [
+        "Crispr (DNA)",
+        "Nobel Prizes",
+        "Chemistry",
+        "Women and Girls"
+      ],
+      "org_facet": [],
+      "per_facet": [
+        "Charpentier, Emmanuelle M (1968- )",
+        "Doudna, Jennifer A"
+      ],
+      "geo_facet": [],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "Emmanuelle Charpentier, left, and Jennifer Doudna may have made the most important biological advance since the discovery of the structure of DNA.",
+          "copyright": "Miguel Riopa/Agence France-Presse — Getty Images",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/opinion/07isaacson1/merlin_178168239_07957a6b-9894-49f9-b573-5f6ae1f33b06-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/opinion/07isaacson1/merlin_178168239_07957a6b-9894-49f9-b573-5f6ae1f33b06-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/07/opinion/07isaacson1/merlin_178168239_07957a6b-9894-49f9-b573-5f6ae1f33b06-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://article/c7552dcb-2edb-5d7a-922b-ef6c3008636b",
+      "url": "https://www.nytimes.com/2020/10/09/science/dog-wool.html",
+      "id": 100000007385126,
+      "asset_id": 100000007385126,
+      "source": "New York Times",
+      "published_date": "2020-10-09",
+      "updated": "2020-10-14 12:03:47",
+      "section": "Science",
+      "subsection": "",
+      "nytdsection": "science",
+      "adx_keywords": "Dogs;Wool and Woolen Goods;Textiles;Fashion and Apparel;Indigenous People;Archaeology and Anthropology;Research;your-feed-science;your-feed-animals;Journal of Anthropological Archaeology;British Columbia (Canada);Washington (State);Vancouver Island (British Columbia);Pacific Northwestern States (US)",
+      "column": null,
+      "byline": "By Lesley Evans Ogden",
+      "type": "Article",
+      "title": "Man’s Best Friend Once Made Nice Wool Blankets, Too",
+      "abstract": "Indigenous peoples of the Pacific Northwest once bred dogs in large numbers and sheared them for wool.",
+      "des_facet": [
+        "Dogs",
+        "Wool and Woolen Goods",
+        "Textiles",
+        "Fashion and Apparel",
+        "Indigenous People",
+        "Archaeology and Anthropology",
+        "Research",
+        "your-feed-science",
+        "your-feed-animals"
+      ],
+      "org_facet": [
+        "Journal of Anthropological Archaeology"
+      ],
+      "per_facet": [],
+      "geo_facet": [
+        "British Columbia (Canada)",
+        "Washington (State)",
+        "Vancouver Island (British Columbia)",
+        "Pacific Northwestern States (US)"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "photo",
+          "caption": "A blanket dated to about 1850, believed to be made from the wool of a dog bred by Coast Salish people for its fleece. ",
+          "copyright": "Tessa Campbell",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/science/09TB-DOGWOOL-02/09TB-DOGWOOL-02-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/science/09TB-DOGWOOL-02/09TB-DOGWOOL-02-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2020/10/09/science/09TB-DOGWOOL-02/09TB-DOGWOOL-02-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    }
+  ]
+}
