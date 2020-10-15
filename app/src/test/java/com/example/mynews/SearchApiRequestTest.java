@@ -81,6 +81,7 @@ public class SearchApiRequestTest {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    assertEquals(mNewsList.toString(), response);
 
                 }
             };
@@ -90,6 +91,8 @@ public class SearchApiRequestTest {
 
     @Test
     public void JsonIsNotCorrectResponse(){
+        mNewsList = new ArrayList<>();
+
         MockHttpStack mockHttpStack = new MockHttpStack();
         BasicHttpResponse fakeResponse = new BasicHttpResponse(new ProtocolVersion("HTTP",1,1),200, "OK");
         File jsonAPIFile = new File("com/example/mynews/testWrongJSONApi.json");
@@ -141,6 +144,7 @@ public class SearchApiRequestTest {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    assertEquals(mNewsList.toString(), response);
 
                 }
             };
