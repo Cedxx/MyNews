@@ -2,6 +2,8 @@
 
 
 package com.example.mynews;
+import android.content.Context;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.HttpStack;
@@ -13,11 +15,17 @@ import java.util.Map;
 
 public class MockHttpStack implements HttpStack {
 
+
     private HttpResponse mResponseToReturn;
     private IOException mExceptionToThrow;
     private String mLastUrl;
     private Map<String, String> mLastHeaders;
     private byte[] mLastPostBody;
+
+    public MockHttpStack() {
+
+    }
+
     public String getLastUrl() {
         return mLastUrl;
     }
@@ -33,6 +41,8 @@ public class MockHttpStack implements HttpStack {
     public void setExceptionToThrow(IOException exception) {
         mExceptionToThrow = exception;
     }
+
+
 
     @Override
     public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders)

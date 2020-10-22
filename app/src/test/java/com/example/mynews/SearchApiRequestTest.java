@@ -1,38 +1,49 @@
 package com.example.mynews;
 
+import android.content.Context;
+
 import org.apache.http.ProtocolVersion;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.Volley;
 import com.example.mynews.Models.News;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SearchApiRequestTest {
 
     private List<News> mNewsList;
+    private Context mContext;
 
-    @Test
+    @Before
     public void canSendRequest(){
-        mNewsList = new ArrayList<>();
-
         MockHttpStack mockHttpStack = new MockHttpStack();
-        BasicHttpResponse fakeResponse = new BasicHttpResponse(new ProtocolVersion("HTTP",1,1),200, "OK");
-        File jsonAPIFile = new File("com/example/mynews/testValideJSONApi.json");
+        final BasicHttpResponse fakeResponse = new BasicHttpResponse(new ProtocolVersion("HTTP",1,1),200, "OK");
+        File jsonAPIFile = new File("C:\\Projects\\MyNews\\app\\src\\test\\java\\com\\example\\mynews\\testValideJSONApi.json");
         try {
             FileInputStream inputStream = new FileInputStream((jsonAPIFile));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
@@ -41,10 +52,20 @@ public class SearchApiRequestTest {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
             }
-            //fakeResponse.setEntity(stringBuilder.toString());
+            fakeResponse.setEntity(new StringEntity(stringBuilder.toString()));
             mockHttpStack.setResponseToReturn(fakeResponse);
-            BasicNetwork basicNetwork = new BasicNetwork(mockHttpStack);
-            Request<String> fakeRequest = new Request<String>(Request.Method.GET, "http://test.com", null) {
+    } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void JsonIsCorrectResponse()  {
+        mNewsList = new ArrayList<>();
+        MockHttpStack mockHttpStack = new MockHttpStack();
+        final BasicNetwork basicNetwork = new BasicNetwork(mockHttpStack);
+        final Request<String> fakeRequest = new Request<String>(Request.Method.GET, "http://test.com", null) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     return null;
@@ -81,21 +102,30 @@ public class SearchApiRequestTest {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    assertEquals(mNewsList.toString(), response);
 
                 }
             };
-        } catch (Exception e){
+        try {
+            basicNetwork.performRequest(fakeRequest);
+        } catch (VolleyError volleyError) {
+            volleyError.printStackTrace();
         }
-    }
+        RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(mContext));
+            requestQueue.add(fakeRequest);
+            assertEquals(mNewsList.size(),20 );
+
+        }
+
+
+
 
     @Test
     public void JsonIsNotCorrectResponse(){
         mNewsList = new ArrayList<>();
 
         MockHttpStack mockHttpStack = new MockHttpStack();
-        BasicHttpResponse fakeResponse = new BasicHttpResponse(new ProtocolVersion("HTTP",1,1),200, "OK");
-        File jsonAPIFile = new File("com/example/mynews/testWrongJSONApi.json");
+        final BasicHttpResponse fakeResponse = new BasicHttpResponse(new ProtocolVersion("HTTP",1,1),200, "OK");
+        File jsonAPIFile = new File("C:\\Projects\\MyNews\\app\\src\\test\\java\\com\\example\\mynews\\testWrongJSONApi.json");
         try {
             FileInputStream inputStream = new FileInputStream((jsonAPIFile));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
@@ -104,10 +134,10 @@ public class SearchApiRequestTest {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
             }
-            //fakeResponse.setEntity(stringBuilder.toString());
+            fakeResponse.setEntity(new StringEntity(stringBuilder.toString()));
             mockHttpStack.setResponseToReturn(fakeResponse);
-            BasicNetwork basicNetwork = new BasicNetwork(mockHttpStack);
-            Request<String> fakeRequest = new Request<String>(Request.Method.GET, "http://test.com", null) {
+            final BasicNetwork basicNetwork = new BasicNetwork(mockHttpStack);
+            final Request<String> fakeRequest = new Request<String>(Request.Method.GET, "http://test.com", null) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     return null;
@@ -144,12 +174,17 @@ public class SearchApiRequestTest {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    assertEquals(mNewsList.toString(), response);
+                    //assertEquals(mNewsList.toString(), response);
 
                 }
-            };
-        } catch (Exception e){
-        }
 
+            };
+            basicNetwork.performRequest(fakeRequest);
+            RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(mContext));
+            requestQueue.add(fakeRequest);
+            assertEquals(mNewsList.size(),20 );
+
+        } catch (Exception ignored){
+        }
     }
 }
