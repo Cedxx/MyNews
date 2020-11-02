@@ -15,6 +15,8 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.Volley;
 import com.example.mynews.Models.News;
@@ -22,7 +24,10 @@ import com.example.mynews.Models.News;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -175,4 +180,47 @@ public class SearchApiRequestTest {
         }
 
     }
+
+    @Test
+    public void testCode() {
+        mNewsList = new ArrayList<>();
+
+        MockHttpStack mockHttpStack = new MockHttpStack();
+        BasicHttpResponse fakeResponse = new BasicHttpResponse(new ProtocolVersion("HTTP",1,1),200, "OK");
+        File jsonAPIFile = new File("com/example/mynews/testWrongJSONApi.json");
+        try {
+            FileInputStream inputStream = new FileInputStream((jsonAPIFile));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            final StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            //fakeResponse.setEntity(stringBuilder.toString());
+            mockHttpStack.setResponseToReturn(fakeResponse);
+            BasicNetwork basicNetwork = new BasicNetwork(mockHttpStack);
+            Request<String> fakeRequest = new Request<String>(Request.Method.GET, "http://test.com", null){
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    return null;
+                }
+
+                @Override
+                protected void deliverResponse(String response) {
+
+
+                }
+
+            };
+            basicNetwork.performRequest(fakeRequest);
+            RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(mContext));
+            requestQueue.add(fakeRequest);
+
+        } catch (IOException | VolleyError e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
