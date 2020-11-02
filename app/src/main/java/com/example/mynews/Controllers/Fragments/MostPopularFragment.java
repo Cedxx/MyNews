@@ -19,13 +19,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mynews.Models.News;
 import com.example.mynews.R;
-import com.example.mynews.Utils.JSONQueryHelper;
+import com.example.mynews.Utils.JSONQueryParser;
 import com.example.mynews.views.MostPopularViewModel;
 import com.example.mynews.views.MostPopularAdapter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +40,7 @@ public class MostPopularFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
         mMostPopularViewModel = new MostPopularViewModel();
-        final JSONQueryHelper JSONQuery = new JSONQueryHelper();
+        final JSONQueryParser JSONQuery = new JSONQueryParser();
 
         //Creating the string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,

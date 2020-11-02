@@ -11,13 +11,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class JSONQueryHelper {
-
-    private List<News> mNewsList;
+public class JSONQueryParser {
 
 
     public List<News> parseAPIResponse(String response) {
-        mNewsList = new ArrayList<>();
+        List<News> newsList = new ArrayList<>();
 
         try {
             //getting the whole json object from the response
@@ -44,15 +42,14 @@ public class JSONQueryHelper {
                     News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
 
                     //adding the news to newsList
-                    mNewsList.add(news);
+                    newsList.add(news);
                 }
 
-            }
+            }return newsList;
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }return null;
 
-        return Collections.unmodifiableList(mNewsList);
     }
 }
