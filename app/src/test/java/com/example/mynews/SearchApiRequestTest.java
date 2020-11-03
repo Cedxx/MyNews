@@ -49,7 +49,7 @@ public class SearchApiRequestTest {
 
         MockHttpStack mockHttpStack = new MockHttpStack();
         final BasicHttpResponse fakeResponse = new BasicHttpResponse(new ProtocolVersion("HTTP",1,1),200, "OK");
-        File jsonAPIFile = new File("C:\\Projects\\MyNews\\app\\src\\test\\java\\com\\example\\mynews\\testValideJSONApi.json");
+        File jsonAPIFile = new File("C:\\Projects\\MyNews\\app\\src\\test\\java\\com\\example\\mynews\\testValidJSONApi.json");
         try {
             FileInputStream inputStream = new FileInputStream((jsonAPIFile));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));

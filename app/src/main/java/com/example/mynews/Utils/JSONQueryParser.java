@@ -12,10 +12,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class JSONQueryParser {
+    List<News> newsList = new ArrayList<>();
 
 
     public List<News> parseAPIResponse(String response) {
-        List<News> newsList = new ArrayList<>();
 
         try {
             //getting the whole json object from the response
