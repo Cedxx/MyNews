@@ -78,7 +78,7 @@ public class MostPopularFragment extends Fragment {
             @Override
             public void onChanged(List<News> news) {
                 recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-                mMostPopularAdapter = new MostPopularAdapter(getContext(), mNewsList);
+                mMostPopularAdapter = new MostPopularAdapter(getContext(), news);
                 recyclerView.setAdapter(mMostPopularAdapter);
             }
         });

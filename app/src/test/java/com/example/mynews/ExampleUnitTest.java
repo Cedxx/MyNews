@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,25 +26,24 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-    private List<News> mNewsList;
 
     @Test
     public void JsonIsCorrectResponse() {
-        mNewsList = new ArrayList<>();
+        List<News> newsList;
         File jsonAPIFile = new File(Paths.get("src/test/java/com/example/mynews/testValidJSONApi.json").toAbsolutePath().toString());
         try {
             FileInputStream inputStream = new FileInputStream((jsonAPIFile));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             final StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
             }
             JSONQueryParser JSONQuery = new JSONQueryParser();
-            //JSONQuery.parseAPIResponse(stringBuilder.toString());
+            //newsList = JSONQuery.parseAPIResponse(toString());
             JSONObject mainObject = new JSONObject(stringBuilder.toString());
-            int object = mainObject.getInt("num_results");
-            assertEquals(object, JSONQuery.parseAPIResponse(stringBuilder.toString()));
+            String object = mainObject.getString("num_results");
+            assertEquals(object, 20);
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();

@@ -7,19 +7,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class JSONQueryParser {
-    List<News> newsList = new ArrayList<>();
 
 
     public List<News> parseAPIResponse(String response) {
+        List<News> newsList = new ArrayList<>();
+
 
         try {
             //getting the whole json object from the response
             JSONObject obj = new JSONObject(response);
+
+            int numberOfArticles = obj.getInt("num_results");
 
             //we have the array named newsArray inside the object
             //so here we are getting that json array
