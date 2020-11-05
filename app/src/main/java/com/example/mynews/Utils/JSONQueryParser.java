@@ -11,6 +11,8 @@ import java.util.List;
 
 public class JSONQueryParser {
 
+    private JSONArray mediaArray = new JSONArray();
+    private JSONObject mediaIndex = new JSONObject();
 
     public List<News> parseAPIResponse(String response) {
         List<News> newsList = new ArrayList<>();
@@ -19,8 +21,6 @@ public class JSONQueryParser {
         try {
             //getting the whole json object from the response
             JSONObject obj = new JSONObject(response);
-
-            int numberOfArticles = obj.getInt("num_results");
 
             //we have the array named newsArray inside the object
             //so here we are getting that json array
@@ -32,12 +32,21 @@ public class JSONQueryParser {
                 JSONObject newsObject = newsArray.getJSONObject(i);
                 String sectionObject = newsObject.getString("section");
                 String mediaUrlObject = newsObject.getString("url");
-                JSONArray mediaArray = newsObject.getJSONArray("media");
-                JSONObject mediaIndex;
-                if(mediaArray.length() > 0){
-                    JSONObject mediaObject = mediaArray.getJSONObject(0);
-                    JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
-                    mediaIndex = mediaData.getJSONObject(0);
+
+                if(mediaArray.equals(newsObject.getJSONArray("media"))){
+                    if(mediaArray.length() > 0){
+                        JSONObject mediaObject = mediaArray.getJSONObject(0);
+                        JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
+                        mediaIndex = mediaData.getJSONObject(0);
+                }
+                    if(mediaArray.equals(newsObject.getJSONArray("multimedia"))){
+                        if(mediaArray.length() > 0){
+                            mediaIndex = mediaArray.getJSONObject(0);
+                        }
+                    }
+                //JSONArray mediaArray = newsObject.getJSONArray("media");
+                //JSONObject mediaIndex;
+
 
                     //creating a news object and giving them the values from json object
                     News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
