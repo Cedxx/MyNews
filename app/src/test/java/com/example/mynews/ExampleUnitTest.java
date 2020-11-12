@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -47,6 +49,30 @@ public class ExampleUnitTest {
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void JsonResponseIsMissingUrl() {
+        String objectUrl = "url";
+        File jsonAPIFile = new File(Paths.get("src/test/java/com/example/mynews/testWrongJSONApi.json").toAbsolutePath().toString());
+        try {
+            FileInputStream inputStream = new FileInputStream((jsonAPIFile));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            final StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            JSONQueryParser JSONQuery = new JSONQueryParser();
+            //newsList = JSONQuery.parseAPIResponse(stringBuilder.toString());
+            JSONObject mainObject = new JSONObject(stringBuilder.toString());
+            objectUrl = mainObject.getString("url");
+
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            assertNotNull(objectUrl);
         }
     }
 

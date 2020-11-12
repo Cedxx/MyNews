@@ -35,6 +35,7 @@ public class JSONQueryParser {
                 String sectionObject = newsObject.getString("section");
                 String mediaUrlObject = newsObject.getString("url");
 
+                // Check if "media" is present in the response for the MostPopular request and return the correct image url
                 if(newsObject.has("media")){
                     JSONArray mediaArray = newsObject.getJSONArray("media");
                     if(mediaArray.length() > 0){
@@ -43,6 +44,7 @@ public class JSONQueryParser {
                         mediaIndex = mediaData.getJSONObject(0);
                     }
                 }
+                // Check if "multimedia" is present in the response for the TOpStory request and return the correct image url
                 if (newsObject.has("multimedia")) {
                     JSONArray mediaArray2 = newsObject.getJSONArray("multimedia");
                     if (mediaArray2.length() > 0) {
