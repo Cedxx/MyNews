@@ -41,11 +41,12 @@ public class JSONQueryParser {
                         JSONObject mediaObject = mediaArray.getJSONObject(0);
                         JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
                         mediaIndex = mediaData.getJSONObject(0);
-                } if (newsObject.has("multimedia")) {
-                        JSONArray mediaArray2 = newsObject.getJSONArray("multimedia");
-                        if (mediaArray2.length() > 0) {
-                            mediaIndex = mediaArray2.getJSONObject(0);
-                        }
+                    }
+                }
+                if (newsObject.has("multimedia")) {
+                    JSONArray mediaArray2 = newsObject.getJSONArray("multimedia");
+                    if (mediaArray2.length() > 0) {
+                        mediaIndex = mediaArray2.getJSONObject(0);
                     }
                 }
                 //creating a news object and giving them the values from json object

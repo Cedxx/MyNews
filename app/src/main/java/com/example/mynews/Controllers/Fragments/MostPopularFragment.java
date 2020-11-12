@@ -23,7 +23,6 @@ import com.example.mynews.Utils.JSONQueryParser;
 import com.example.mynews.views.MostPopularViewModel;
 import com.example.mynews.views.MostPopularAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,14 +30,14 @@ public class MostPopularFragment extends Fragment {
     //the URL having the json data
     private static final String JSON_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     //The list where we will store all the News object after parsing JSON
-    private List<News> mNewsList;
+   // private List<News> mNewsList;
     private MostPopularAdapter mMostPopularAdapter;
     private MostPopularViewModel mMostPopularViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNewsList = new ArrayList<>();
+       // mNewsList = new ArrayList<>();
         mMostPopularViewModel = new MostPopularViewModel();
         final JSONQueryParser JSONQuery = new JSONQueryParser();
 
