@@ -1,5 +1,7 @@
 package com.example.mynews.Utils;
 
+import android.net.http.DelegatingSSLSession;
+
 import com.example.mynews.Models.News;
 
 import org.json.JSONArray;
@@ -11,8 +13,8 @@ import java.util.List;
 
 public class JSONQueryParser {
 
-    private JSONArray mediaArray = new JSONArray();
-    private JSONObject mediaIndex = new JSONObject();
+   //private JSONArray mediaArray = new JSONArray();
+  private JSONObject mediaIndex = new JSONObject();
 
     public List<News> parseAPIResponse(String response) {
         List<News> newsList = new ArrayList<>();
@@ -33,33 +35,29 @@ public class JSONQueryParser {
                 String sectionObject = newsObject.getString("section");
                 String mediaUrlObject = newsObject.getString("url");
 
-                if(mediaArray.equals(newsObject.getJSONArray("media"))){
+                if(newsObject.has("media")){
+                    JSONArray mediaArray = newsObject.getJSONArray("media");
                     if(mediaArray.length() > 0){
                         JSONObject mediaObject = mediaArray.getJSONObject(0);
                         JSONArray mediaData = mediaObject.getJSONArray("media-metadata");
                         mediaIndex = mediaData.getJSONObject(0);
-                }
-                    if(mediaArray.equals(newsObject.getJSONArray("multimedia"))){
-                        if(mediaArray.length() > 0){
-                            mediaIndex = mediaArray.getJSONObject(0);
+                } if (newsObject.has("multimedia")) {
+                        JSONArray mediaArray2 = newsObject.getJSONArray("multimedia");
+                        if (mediaArray2.length() > 0) {
+                            mediaIndex = mediaArray2.getJSONObject(0);
                         }
                     }
-                //JSONArray mediaArray = newsObject.getJSONArray("media");
-                //JSONObject mediaIndex;
-
-
-                    //creating a news object and giving them the values from json object
-                    News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
-
-                    //adding the news to newsList
-                    newsList.add(news);
                 }
+                //creating a news object and giving them the values from json object
+                News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
 
+                //adding the news to newsList
+                newsList.add(news);
             }return newsList;
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }return null;
+        }return newsList;
 
     }
 }

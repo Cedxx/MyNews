@@ -40,10 +40,10 @@ public class ExampleUnitTest {
                 stringBuilder.append(line);
             }
             JSONQueryParser JSONQuery = new JSONQueryParser();
-            //newsList = JSONQuery.parseAPIResponse(toString());
+            newsList = JSONQuery.parseAPIResponse(stringBuilder.toString());
             JSONObject mainObject = new JSONObject(stringBuilder.toString());
-            String object = mainObject.getString("num_results");
-            assertEquals(object, 20);
+            int object = mainObject.getInt("num_results");
+            assertEquals(newsList.size(), object);
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
