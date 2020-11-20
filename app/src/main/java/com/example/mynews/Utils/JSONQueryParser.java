@@ -16,7 +16,7 @@ public class JSONQueryParser {
    //private JSONArray mediaArray = new JSONArray();
   private JSONObject mediaIndex = new JSONObject();
 
-    public List<News> parseAPIResponse(String response) {
+    public List<News> parseAPIResponse(String response) throws JSONException {
         List<News> newsList = new ArrayList<>();
 
 
@@ -60,7 +60,8 @@ public class JSONQueryParser {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }return newsList;
+            throw e;
+        }
 
     }
 }

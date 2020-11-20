@@ -23,6 +23,9 @@ import com.example.mynews.R;
 import com.example.mynews.Utils.JSONQueryParser;
 import com.example.mynews.views.TopStoryViewModel;
 import com.example.mynews.views.TopStoryAdapter;
+
+import org.json.JSONException;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +49,11 @@ public class TopStoryFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        mTopStoryViewModel.setNews(JSONQuery.parseAPIResponse(response));
+                        try {
+                            mTopStoryViewModel.setNews(JSONQuery.parseAPIResponse(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
