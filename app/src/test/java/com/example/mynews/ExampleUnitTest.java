@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,8 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -28,6 +32,7 @@ import static org.junit.Assert.assertNull;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
 
     @Test
     public void JsonIsCorrectResponse() {
@@ -54,7 +59,7 @@ public class ExampleUnitTest {
 
     @Test
     public void JsonResponseIsMissingUrl() {
-        String objectUrl = "url";
+        List<News> newsList;
         File jsonAPIFile = new File(Paths.get("src/test/java/com/example/mynews/testWrongJSONApi.json").toAbsolutePath().toString());
         try {
             FileInputStream inputStream = new FileInputStream((jsonAPIFile));
@@ -65,14 +70,13 @@ public class ExampleUnitTest {
                 stringBuilder.append(line);
             }
             JSONQueryParser JSONQuery = new JSONQueryParser();
-            //newsList = JSONQuery.parseAPIResponse(stringBuilder.toString());
-            JSONObject mainObject = new JSONObject(stringBuilder.toString());
-            objectUrl = mainObject.getString("url");
+            newsList = JSONQuery.parseAPIResponse(stringBuilder.toString());
+
+            assertTrue(newsList.isEmpty());
 
 
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
-            assertNotNull(objectUrl);
+            assertEquals("JSONObject[\"url\"] not found.",e.getMessage());
         }
     }
 

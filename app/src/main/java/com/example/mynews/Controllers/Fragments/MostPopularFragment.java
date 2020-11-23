@@ -23,6 +23,8 @@ import com.example.mynews.Utils.JSONQueryParser;
 import com.example.mynews.views.MostPopularViewModel;
 import com.example.mynews.views.MostPopularAdapter;
 
+import org.json.JSONException;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +48,11 @@ public class MostPopularFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        try {
                             mMostPopularViewModel.setNews(JSONQuery.parseAPIResponse(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {

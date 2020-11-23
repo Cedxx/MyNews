@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.mynews.Models.News;
 import com.example.mynews.R;
 import com.example.mynews.Utils.ItemsClickSupport;
+import com.example.mynews.Utils.JSONQueryParser;
 import com.example.mynews.views.ArticleSearchViewModel;
 import com.example.mynews.views.ArticleSearchAdapter;
 import com.example.mynews.Controllers.Activities.WebViewActivity;
@@ -70,6 +71,7 @@ public class ArticleSearchFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mNewsList = new ArrayList<>();
         mArticleSearchViewModel = new ArticleSearchViewModel();
+        final JSONQueryParser JSONQuery = new JSONQueryParser();
 
         //retrieve SharedPreferences Data for the JSON query search
         //Retrieving sharedPreferences data for the CheckBox
@@ -85,47 +87,7 @@ public class ArticleSearchFragment extends Fragment {
                     public void onResponse(String response) {
 
                         try {
-                            //getting the whole json object from the response
-                            JSONObject obj = new JSONObject(response);
-
-                            //getting the main object response for the JSON and its array
-                            JSONObject responseObj = obj.getJSONObject("response");
-                            JSONArray newsArray = responseObj.getJSONArray("docs");
-
-                            //now looping through all the elements of the json array
-                            for (int i = 0; i < newsArray.length() -1; i++) {
-                                //getting the json object of the particular index inside the array
-                                JSONObject newsObject = newsArray.getJSONObject(i);
-                                String sectionObject = newsObject.getString("section_name");
-                                String mediaUrlObject = newsObject.getString("web_url");
-                                JSONArray mediaArray = newsObject.getJSONArray("multimedia");
-                                for (int j = 0; j < mediaArray.length() -1; j++) {
-                                    JSONObject mediaObject = mediaArray.getJSONObject(0);
-                                    StringBuilder myMediaImageUrl = new StringBuilder();
-                                    myMediaImageUrl.append(baseImageUrl);
-                                    if(mediaObject.getInt("height") == 75) {
-                                        myMediaImageUrl.append(mediaObject.getString("url"));
-                                        articleMediaUrl = myMediaImageUrl.toString();
-                                        articleMedia = mediaObject;
-                                    }else if(mediaObject.getInt("height") > 75){
-                                        myMediaImageUrl.append(mediaObject.getString("url"));
-                                        articleMediaUrl = myMediaImageUrl.toString();
-                                        articleMedia = mediaObject;
-                                    }else {
-                                        JSONObject mediaDefaultObject = mediaArray.getJSONObject(0);
-                                        myMediaImageUrl.append(mediaDefaultObject.getString("url"));
-                                        articleMediaUrl = myMediaImageUrl.toString();
-                                        articleMedia = mediaArray.getJSONObject(0);
-                                    }
-                                }
-
-                                //creating a news object and giving them the values from json object
-                                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMediaUrl, mediaUrlObject);
-
-                                //adding the news to newsList
-                                mNewsList.add(news);
-                            }
-                            mArticleSearchViewModel.setNews(mNewsList);
+                            mArticleSearchViewModel.setNews(JSONQuery.parseAPIResponse(response));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -221,7 +183,7 @@ public class ArticleSearchFragment extends Fragment {
             @Override
             public void onChanged(List<News> news) {
                 recyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-                mArticleSearchAdapter = new ArticleSearchAdapter(getContext(), mNewsList);
+                mArticleSearchAdapter = new ArticleSearchAdapter(getContext(), news);
                 recyclerView.setAdapter(mArticleSearchAdapter);
             }
         });
