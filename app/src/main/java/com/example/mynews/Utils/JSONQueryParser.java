@@ -1,6 +1,6 @@
 package com.example.mynews.Utils;
 
-import android.net.http.DelegatingSSLSession;
+import android.util.Log;
 
 import com.example.mynews.Models.News;
 
@@ -8,8 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class JSONQueryParser {
 
@@ -19,6 +25,7 @@ public class JSONQueryParser {
     private JSONObject articleMedia = new JSONObject();
     private String articleMediaUrl = "";
     private String baseImageUrl = "https://static01.nyt.com/";
+    private  String dateFormat = "";
 
     public List<News> parseAPIResponse(String response) throws JSONException {
         List<News> newsList = new ArrayList<>();
@@ -38,6 +45,7 @@ public class JSONQueryParser {
             JSONObject newsObject = newsArray.getJSONObject(i);
             String sectionObject = newsObject.getString("section");
             String mediaUrlObject = newsObject.getString("url");
+            dateFormat = newsObject.getString("published_date");
 
             // Check if "media" is present in the response for the MostPopular request and return the correct image url
             if (newsObject.has("media")) {
@@ -56,7 +64,7 @@ public class JSONQueryParser {
                 }
             }
             //creating a news object and giving them the values from json object
-            News news = new News(newsObject.getString("title"), newsObject.getString("published_date"), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
+            News news = new News(newsObject.getString("title"), convertDate(dateFormat), sectionObject, mediaIndex.getString("url"), mediaUrlObject);
 
             //adding the news to newsList
             newsList.add(news);
@@ -72,6 +80,7 @@ public class JSONQueryParser {
                 JSONObject newsObject = newsArray.getJSONObject(i);
                 String sectionObject = newsObject.getString("section_name");
                 String mediaUrlObject = newsObject.getString("web_url");
+                dateFormat = newsObject.getString("pub_date");
                 JSONArray mediaArray = newsObject.getJSONArray("multimedia");
                 for (int j = 0; j < mediaArray.length() - 1; j++) {
                     JSONObject mediaObject = mediaArray.getJSONObject(0);
@@ -94,7 +103,7 @@ public class JSONQueryParser {
                 }
 
                 //creating a news object and giving them the values from json object
-                News news = new News(newsObject.getString("snippet"), newsObject.getString("pub_date"), sectionObject, articleMediaUrl, mediaUrlObject);
+                News news = new News(newsObject.getString("snippet"), convertDate(dateFormat), sectionObject, articleMediaUrl, mediaUrlObject);
 
                 //adding the news to newsList
                 newsList.add(news);
@@ -103,4 +112,28 @@ public class JSONQueryParser {
         return newsList;
 
     }
+
+
+    //Method to convert ISO date to some simple dd:MM:yyyy version
+    public static String convertDate(String date) {
+        //final List<String> dateFormats = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd");
+
+        SimpleDateFormat longDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale.US);
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        try {
+            Date longDate = longDateFormat.parse(date);
+            Date shortDate = shortDateFormat.parse(date);
+            if (longDate == longDateFormat.parse(date)) {
+                return new SimpleDateFormat("dd MMMM yyyy",Locale.US).format(longDate);
+            }
+            if (shortDate == shortDateFormat.parse(date)){
+                return new SimpleDateFormat("dd MMMM yyyy",Locale.US).format(shortDate);
+            }
+
+        } catch (ParseException e) {
+            return "";
+        }
+        return date;
+    }
+
 }

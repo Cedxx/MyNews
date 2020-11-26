@@ -76,8 +76,21 @@ public class ExampleUnitTest {
 
 
         } catch (IOException | JSONException e) {
-            assertEquals("JSONObject[\"url\"] not found.",e.getMessage());
+            assertEquals("JSONObject[\"url\"] not found.", e.getMessage());
         }
     }
 
+    @Test
+    public void ConvertDateFormat() {
+        String shortDateFormat = "2020-10-10";
+        String longDateFormat = "2020-11-13T17:21:01+0000";
+        try {
+            assertEquals("10 October 2020", JSONQueryParser.convertDate(shortDateFormat));
+            assertEquals("13 November 2020", JSONQueryParser.convertDate(longDateFormat));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
