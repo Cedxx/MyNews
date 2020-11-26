@@ -1,21 +1,18 @@
 package com.example.mynews.Utils;
 
-import android.util.Log;
-
 import com.example.mynews.Models.News;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class JSONQueryParser {
 
@@ -114,26 +111,19 @@ public class JSONQueryParser {
     }
 
 
-    //Method to convert ISO date to some simple dd:MM:yyyy version
+    //Method to convert long date format to easier version to read
     public static String convertDate(String date) {
-        //final List<String> dateFormats = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd");
 
-        SimpleDateFormat longDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale.US);
-        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        //The SimpleDateFormat that will be use to check our JSON query value
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         try {
-            Date longDate = longDateFormat.parse(date);
-            Date shortDate = shortDateFormat.parse(date);
-            if (longDate == longDateFormat.parse(date)) {
-                return new SimpleDateFormat("dd MMMM yyyy",Locale.US).format(longDate);
-            }
-            if (shortDate == shortDateFormat.parse(date)){
-                return new SimpleDateFormat("dd MMMM yyyy",Locale.US).format(shortDate);
-            }
+            Date shortDate = dateFormat.parse(date);
+            //Returning the date they way I want it to look
+            return new SimpleDateFormat("dd MMMM yyyy", Locale.US).format(Objects.requireNonNull(shortDate));
 
         } catch (ParseException e) {
             return "";
         }
-        return date;
     }
 
 }
