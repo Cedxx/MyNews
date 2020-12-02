@@ -214,7 +214,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         // display the date chosen by the user
         final Calendar calendar = Calendar.getInstance(locale);
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
-        final String myFormat = "dd/MM/yy";
+        final String myFormat = "dd/MM/yyyy";
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         if (getCurrentFocus() != null) {

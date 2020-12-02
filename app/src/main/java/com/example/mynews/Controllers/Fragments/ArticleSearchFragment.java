@@ -35,8 +35,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -47,7 +51,7 @@ public class ArticleSearchFragment extends Fragment {
     private static final String JSON_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
     private String ApiKey = "&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv";
     private String baseImageUrl = "https://static01.nyt.com/";
-    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:(\"Sports\")&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv&q=motogp";
+    String jsonText = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=news_desk:(\"Politics\")&begin_date=11112020&end_date=02122020&api-key=k5Eg30P0RAAy4bav3zB7RBXK5NrPjjCv&q=election";
     //The list where we will store all the News object after parsing JSON
     private List<News> mNewsList;
     private ArticleSearchAdapter mArticleSearchAdapter;
@@ -110,7 +114,8 @@ public class ArticleSearchFragment extends Fragment {
     }
 
 
-    //String builder for the MediaImageUrl
+    //String builder for the JSON API request
+    //Here we set the correct String to display all the request data for the user search Query
     private String jsonApiSearchQueryVariable(){
         StringBuilder myJsonApiQuery = new StringBuilder();
         myJsonApiQuery.append(JSON_URL);
@@ -122,9 +127,12 @@ public class ArticleSearchFragment extends Fragment {
         if(entrepreneursIsChecked()) myJsonApiQuery.append("\"entrepreneurs\"");
         if(travelsIsChecked()) myJsonApiQuery.append("\"travels\"");
         myJsonApiQuery.append(")");
-        myJsonApiQuery.append(ApiKey);
+        myJsonApiQuery.append("&begin_date=").append(beginDateFromQuery());
+        myJsonApiQuery.append("&end_date=").append(endDateFromQuery());
+        myJsonApiQuery.append("&sort=newest");
         myJsonApiQuery.append("&q=");
         myJsonApiQuery.append(searchQueryValue());
+        myJsonApiQuery.append(ApiKey);
         return myJsonApiQuery.toString();
     }
 
@@ -168,6 +176,41 @@ public class ArticleSearchFragment extends Fragment {
     //method to retrieve the end date from the searchActivity
     private String endDateValue(){
         return mSharedPreferences.getString("endDate", "");
+    }
+
+    
+    //Retrieve the begin from the Search Query and convert it a format readable for the JSONQuery
+    private String beginDateFromQuery(){
+        String beginDate = mSharedPreferences.getString("beginDate","");
+
+        //The SimpleDateFormat that will be use to check our JSON query value
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        try {
+            Date shortDate = dateFormat.parse(beginDate);
+            //Returning the date they way I want it to look
+            return new SimpleDateFormat("yyyyMMdd", Locale.US).format(Objects.requireNonNull(shortDate));
+
+        } catch (ParseException e) {
+            return "";
+        }
+
+    }
+
+    //Retrieve the end date from the Search Query and convert it a format readable for the JSONQuery
+    private String endDateFromQuery(){
+        String endDate = mSharedPreferences.getString("endDate","");
+
+        //The SimpleDateFormat that will be use to check our JSON query value
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        try {
+            Date shortDate = dateFormat.parse(endDate);
+            //Returning the date they way I want it to look
+            return new SimpleDateFormat("yyyyMMdd", Locale.US).format(Objects.requireNonNull(shortDate));
+
+        } catch (ParseException e) {
+            return "";
+        }
+
     }
 
     @Override
